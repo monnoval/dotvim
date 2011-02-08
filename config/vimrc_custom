@@ -1,0 +1,43 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => OS Compatibility
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Speed up vim
+let g:loaded_matchparen = 1
+set directory^=$HOME/tmp
+
+"Persistent undo
+try
+  if MySys() == "windows"
+    set undodir=C:\Windows\Temp
+  else
+    set undodir=~/.vim/view
+  endif
+  set undofile
+catch
+endtry
+
+if MySys() == "mac"
+  set gfn=Bitstream\ Vera\ Sans\ Mono:h13
+  set shell=/bin/bash
+elseif MySys() == "windows"
+  set gfn=Consolas:h10
+  set bs=2 " backspace fix
+  set lines=99999 " Maximaize windows
+  set clipboard=unnamed
+elseif MySys() == "linux"
+  set gfn=Consolas\ 10
+  set shell=/bin/bash
+  colorscheme vylight
+  set background=light
+  set guioptions+=m
+endif
+
+" Set font according to system
+if has("gui_running")
+  set t_Co=256
+  set background=light
+  colorscheme vylight
+else
+  colorscheme default
+  set background=dark
+endif
