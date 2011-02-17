@@ -1,15 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Enhanced Commentify
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EnhCommentifyPretty = 'yes'
-"let g:EnhCommentifyUserBindings = 'yes'
-let g:EnhCommentifyRespectIndent = 'yes'
-"let g:EnhCommentifyUseBlockIndent = 'yes'
-let g:EnhCommentifyMultiPartBlocks = 'yes'
-let g:EnhCommentifyUseSyntax       = 'yes'
-let g:EnhCommentifyUseAltKeys      = 'yes'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Yankring
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <silent> <leader>y  :YRShow<CR>

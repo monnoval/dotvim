@@ -8,9 +8,9 @@ nmap ;; i
 
 " Fast editing of the .vimrc
 if MySys() == "windows"
-  map <leader>e :e! ~/vimfiles/vimrc<cr>
+  map <leader>` :tabnew<cr>:e! ~/vimfiles/vimrc<cr>
 else
-  map <leader>e :e! ~/.vim/vimrc<cr>
+  map <leader>` :tabnew<cr>:e! ~/.vim/vimrc<cr>
 endif
 
 " Fast saving
@@ -39,29 +39,29 @@ vnoremap <silent> gv :call VisualSearch('gv')<CR>
 map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
+  exe "menu Foo.Bar :" . a:str
+  emenu Foo.Bar
+  unmenu Foo
 endfunction 
 
 " From an idea by Michael Naumann
 function! VisualSearch(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
+  if a:direction == 'b'
+      execute "normal ?" . l:pattern . "^M"
+  elseif a:direction == 'gv'
+      call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+  elseif a:direction == 'f'
+      execute "normal /" . l:pattern . "^M"
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -90,23 +90,39 @@ map <C-l> <C-W>l
 set winaltkeys=no
 
 " Maps Alt-[h,j,k,l] to resizing a window split
-map <silent> <A-h> <C-w>5<
-map <silent> <A-l> <C-w>5>
-map <silent> <A-j> <C-W>5-
-map <silent> <A-k> <C-W>5+
-map <silent> <S-A-h> <C-w>h<C-w><bar>
-map <silent> <S-A-l> <C-w>l<C-w><bar>
-map <silent> <S-A-j> <C-w>j<C-w>_
-map <silent> <S-A-k> <C-w>k<C-w>_
-map <silent> <S-A-k> <C-w>k<C-w>_
+map <silent> <S-Left>  <C-w>5<
+map <silent> <S-Right> <C-w>5>
+map <silent> <S-Down>  <C-W>5-
+map <silent> <S-Up>    <C-W>5+
 map <silent> <S-Space> <C-w>=
-map <silent> <C-Space> <C-w><bar><C-w>_
 
-" Maps Alt-[s.v] to horizontal and vertical split respectively
-map <silent> <A-s> :split<cr>
-map <silent> <A-v> :vsplit<cr>
-map <silent> <A-e> :vsplit<cr><C-W>l:E<cr>
-map <silent> <A-t> :tabnew<cr>:E<cr>
+" Maximize window and return to previous split structure
+" http://vim.wikia.com/wiki/Maximize_window_and_return_to_previous_split_structure
+map <silent> <C-Space> :call MaximizeToggle()<cr>
+nnoremap <C-W><C-O> :call MaximizeToggle()<cr>
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    exec "source " . s:maximize_session
+    call delete(s:maximize_session)
+    unlet s:maximize_session
+    let &hidden=s:maximize_hidden_save
+    unlet s:maximize_hidden_save
+  else
+    let s:maximize_hidden_save = &hidden
+    let s:maximize_session = tempname()
+    set hidden
+    exec "mksession! " . s:maximize_session
+    only
+  endif
+endfunction
+
+" Horizontal and vertical split respectively
+map <silent> <leader>s :split<cr>
+map <silent> <leader>v :vsplit<cr>
+map <silent> <leader>e :vsplit<cr><C-W>l:E<cr>
+" Set the current buffer to be opened as tab
+map <silent> <leader>t :tabedit %<cr>
 
 " Tab navigation like firefox
 nmap <C-t>       :tabnew<cr>
@@ -119,14 +135,14 @@ vnoremap <Space> zf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+"Pressing ,spell will toggle and untoggle spell checking
+"map <leader>spell :setlocal spell!<cr>
 
 "Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+"map <leader>sn ]s
+"map <leader>sp [s
+"map <leader>sa zg
+"map <leader>s? z=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
