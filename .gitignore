@@ -33,4 +33,5 @@ Thumbs.db
 doc/vimwiki/*
 view/*
 bundle/*
+Trashed-Bundles/*
 
