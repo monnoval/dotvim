@@ -11,23 +11,23 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 
 " https://github.com/garbas/vim-snipmate
-Plugin "MarcWeber/vim-addon-mw-utils"
-Plugin "tomtom/tlib_vim"
-Plugin "garbas/vim-snipmate"
-Plugin "honza/vim-snippets"
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
 
 " https://github.com/kien/ctrlp.vim
-Plugin "kien/ctrlp.vim"
+Bundle "kien/ctrlp.vim"
 
 " https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
 
-" https://github.com/bling/vim-airline
+" Themes
 Plugin 'vylight'
+Plugin 'chriskempson/vim-tomorrow-theme'
 
 " NERDTree
 Plugin 'scrooloose/nerdtree'
@@ -36,6 +36,9 @@ Plugin 'jistr/vim-nerdtree-tabs'
 
 " VIM Commentary
 Plugin 'tpope/vim-commentary'
+
+" Ack
+Plugin 'mileszs/ack.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -201,7 +204,7 @@ set noswapfile
 
 " Set font according to system
 if has("mac") || has("macunix")
-    set gfn=Source\ Code\ Pro\ for\ Powerline:h12,Menlo:h12
+    set gfn=Source\ Code\ Pro\ for\ Powerline:h13,Menlo:h13
 elseif has("win16") || has("win32")
     set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
 elseif has("linux")
@@ -226,7 +229,7 @@ if has("gui_running")
 endif
 
 if has("gui_running")
-   colorscheme vylight
+   colorscheme Tomorrow
 else
    colorscheme metacosm
 endif
@@ -254,7 +257,7 @@ let themeindex=0
 function! RotateColorTheme()
    let y = -1
    while y == -1
-      let colorstring = "vylight#inkpot#ron#blue#elflord#evening#koehler#murphy#pablo#desert#torte#"
+      let colorstring = "Tomorrow#vylight#ron#blue#elflord#evening#koehler#murphy#pablo#desert#torte#"
       let x = match( colorstring, "#", g:themeindex )
       let y = match( colorstring, "#", x + 1 )
       let g:themeindex = x + 1
@@ -297,10 +300,10 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,1000 bd!<cr>
 
 " Useful mappings for managing tabs
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>tn :tabnext
+map <leader>to :tabonly<CR>
+map <leader>tc :tabclose<CR>
+map <leader>tm :tabmove<CR>
+map <leader>tn :tabnext<CR>
 
 " Horizontal and vertical split respectively
 map <silent> <leader>s :split<cr>
@@ -321,17 +324,8 @@ map <silent> <S-Space> <C-w>=
 map <Leader>web :call Browser ()<CR>
 " http://google.com
 
-" Open the Project Plugin <F2>
-" nnoremap <silent> <F2> :Project<CR>
-
-" Open the Project Plugin
-" nnoremap <silent> <Leader>pal  :Project .vimproject<CR>
-
-" Open the TagList Plugin <F3>
-nnoremap <silent> <F3> :Tlist<CR>
-
 " Next Tab
-nnoremap <silent> <C-Right> :tabnext<CR>
+nnoremap <silent> <C-Tab> :tabnext<CR>
 
 " Previous Tab
 nnoremap <silent> <C-Left> :tabprevious<CR>
@@ -386,30 +380,78 @@ map 0 ^
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
+" Highlighting
+map <silent> <leader><cr> :noh<cr>
+
 
 "}}}
 
 "{{{Plugins Settings
 
-" CtrlP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => CtrlP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>g :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
-" Airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-" NERDtree
-map <silent> <leader>nn :NERDTree<CR>
-map <silent> <leader>nm :NERDTreeMirror<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDtree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <silent> <leader>nn :NERDTreeTabsToggle<CR>
 let NERDTreeWinSize     = 30
 let NERDTreeMouseMode   = 2
 let NERDTreeWinPos      = 'left'
 let NERDTreeHijackNetrw = 0
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.dropbox']
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ack searching and cope displaying
+"    requires ack.vim - it's much better than vimgrep/grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("Ack \"" . l:pattern . "\" " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" When you press gv you Ack after the selected text
+vnoremap <silent> fv :call VisualSelection('gv', '')<CR>
+
+" Open Ack and put the cursor in the right position
+map <leader>f :Ack
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 
 "}}}
