@@ -1,0 +1,7 @@
+set gfn=Consolas:h10
+nmap <C-S-tab>       :tabprevious <CR>
+map  <C-S-tab>       :tabprevious <CR>
+imap <C-S-tab> <Esc> :tabprevious <CR>i
+nmap <C-tab>         :tabnext     <CR>
+map  <C-tab>         :tabnext     <CR>
+imap <C-tab>   <Esc> :tabnext     <CR>i
