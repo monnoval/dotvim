@@ -1,62 +1,30 @@
-"{{{Vundle
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Vundle {{{
 
-" set the runtime path to include Vundle and initialize
+set nocompatible " be iMproved, required
+filetype off     " required
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-" Keep Plugin commands between vundle#begin/end.
-
-" https://github.com/garbas/vim-snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
-
-" https://github.com/kien/ctrlp.vim
 Bundle "kien/ctrlp.vim"
-
-" https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
-
-" Themes
 Plugin 'vylight'
 Plugin 'chriskempson/vim-tomorrow-theme'
-
-" NERDTree
 Plugin 'scrooloose/nerdtree'
-" NERDTree Tabs
 Plugin 'jistr/vim-nerdtree-tabs'
-
-" VIM Commentary
 Plugin 'tpope/vim-commentary'
-
-" Ack
 Plugin 'dkprice/vim-easygrep'
 
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList          - list configured plugins
-" :PluginInstall(!)    - install (update) plugins
-" :PluginSearch(!) foo - search (or refresh cache first) for foo
-" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"}}}
 
-"{{{Auto Commands
+"}}}
+" Auto Commands {{{
 
 " Automatically cd into the directory that the file is in
 autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
@@ -102,11 +70,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 "}}}
-
-"{{{VIM user interface
-
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+" Misc {{{
 
 " No annoying sound on errors
 set noerrorbells
@@ -116,96 +80,66 @@ set tm=500
 set visualbell t_vb=
 set novb
 
-"}}}
+set winaltkeys=no " no alt key in menu
 
-"{{{Misc Settings
-
-" Necesary  for lots of cool vim things
-set nocompatible
-
-" This shows what you are typing as a command.  I love this!
-set showcmd
-
-" Folding Stuffs
-set foldmethod=marker
+set foldmethod=marker " Folding Stuffs
 
 " Needed for Syntax Highlighting and stuff
-filetype on
-filetype plugin on
-syntax enable
+filetype plugin indent on
+syntax on
 set grepprg=grep\ -nH\ $*
-
-" Who doesn't like autoindent?
-set autoindent
-
-" Spaces are better than a tab character
-set expandtab
-set smarttab
-
-" Who wants an 8 character tab?  Not me!
-set shiftwidth=2
-set softtabstop=2
-
-" Use english for spellchecking, but don't spellcheck by default
-if version >= 700
-   set spl=en spell
-   set nospell
-endif
-
-" Real men use gcc
-" compiler gcc
 
 " Cool tab completion stuff
 set wildmenu
 set wildmode=list:longest,full
 
-" Enable mouse support in console
-set mouse=a
+set mouse=a " Enable mouse support in console
+set backspace=2 " Got backspace?
 
-" Got backspace?
-set backspace=2
-
-" Line Numbers PWN!
-set number
-
-" Ignoring case is a fun trick
-set ignorecase
-
-" And so is Artificial Intellegence!
-set smartcase
-
-" This is totally awesome - remap jj to escape in insert mode.  You'll never type jj anyway, so it's great!
-" inoremap jj <Esc>
-
-" nnoremap JJJJ <Nop>
-
-" Incremental searching is sexy
-set incsearch
-
-" Highlight things that we find with the search
-set hlsearch
-
-" Since I use linux, I want this
-let g:clipbrdDefaultReg = '+'
-
-" When I close a tab, remove the buffer
-set nohidden
+let g:clipbrdDefaultReg = '+' " since I use linux, I want this
+set nohidden " when I close a tab, remove the buffer
 
 " Set off the other paren
 highlight MatchParen ctermbg=4
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
+set nobackup " turn backup off, since most stuff is in vcs
 set nowb
 set noswapfile
 
-" Auto load updates
-set autoread
+set autoread " Auto load updates
+
+"}}}
+" UI Layout {{{
+
+set showcmd    " shows what you are typing as a command
+set number     " show line numbers
+set cursorline " highlight current line
+
+set so=7 " set 7 lines to the cursor - when moving vertically using j/k
+
+"}}}
+" Spaces & Tabs {{{
+
+set autoindent  " who doesn't like autoindent?
+set expandtab   " spaces are better than a tab character
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+
+"}}}
+" Searching {{{
+
+set ignorecase          " ignore case when searching
+set incsearch           " search as characters are entered
+set hlsearch            " highlight all matches
+
+" }}}
+" Files {{{
 
 set wildignore+=.svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*
-" }}}
 
-"{{{Look and Feel
+" }}}
+" Look and Feel {{{
 
 " Set font according to system
 if has("mac") || has("macunix")
@@ -226,26 +160,17 @@ set guioptions-=l
 set guioptions-=L
 
 if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-if has("gui_running")
    colorscheme Tomorrow
 else
    colorscheme metacosm
 endif
 
-"Status line gnarliness
+" Status line gnarliness
 set laststatus=2
 set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
 
 " }}}
-
-"{{{ Functions
-
+" Functions {{{
 "{{{ Open URL in browser
 
 function! Browser ()
@@ -255,7 +180,6 @@ function! Browser ()
 endfunction
 
 "}}}
-
 "{{{Theme Rotating
 let themeindex=0
 function! RotateColorTheme()
@@ -274,12 +198,10 @@ function! RotateColorTheme()
    endwhile
 endfunction
 " }}}
-
 "}}}
+" Mappings {{{
 
-"{{{ Mappings
-
-let mapleader = ","
+let mapleader   = ","
 let g:mapleader = ","
 
 imap ;; <Esc>
@@ -290,12 +212,6 @@ nmap <leader>w :w!<cr>
 nmap <leader>a :wa!<cr>
 nmap <leader>x :x!<cr>
 nmap <leader>q :q<cr>
-
-" Smart way to move btw. windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -314,8 +230,11 @@ map <silent> <leader>s :split<cr>
 map <silent> <leader>v :vsplit<cr>
 map <silent> <leader>e :vsplit<cr><C-W>l:E<cr>
 
-" No alt key in menu
-set winaltkeys=no
+" Smart way to move btw. windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 " Maps Alt-[h,j,k,l] to resizing a window split
 map <silent> <S-Left>  <C-w>5<
@@ -340,9 +259,6 @@ nnoremap <silent> <C-t> :tabnew<CR>
 " Rotate Color Scheme <F8>
 nnoremap <silent> <F8> :execute RotateColorTheme()<CR>
 
-" DOS is for fools.
-" nnoremap <silent> <F9> :%s/$//g<CR>:%s// /g<CR>
-
 " Edit vimrc \ev
 nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
 
@@ -355,10 +271,6 @@ nnoremap <silent> j gj
 inoremap <silent> <Up> <Esc>gka
 inoremap <silent> <Down> <Esc>gja
 
-" Good call Benjie (r for i)
-nnoremap <silent> <Home> i <Esc>r
-nnoremap <silent> <End> a <Esc>r
-
 " Create Blank Newlines and stay in Normal mode
 nnoremap <silent> zj o<Esc>
 nnoremap <silent> zk O<Esc>
@@ -370,13 +282,6 @@ nnoremap <space> za
 " search will center on the line it's found in.
 map N Nzz
 map n nzz
-
-" Testing
-set completeopt=longest,menuone,preview
-
-inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
-inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
 
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
@@ -402,7 +307,6 @@ cmap <A-v> <C-r><C-o>z
 autocmd FocusGained * let @z=@+
 
 "}}}
-
 "{{{Plugins Settings
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -443,7 +347,3 @@ let g:EasyGrepCommand = 1
 let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*"
 
 "}}}
-
-filetype plugin indent on
-syntax on
-
