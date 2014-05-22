@@ -38,7 +38,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-commentary'
 
 " Ack
-Plugin 'mileszs/ack.vim'
+Plugin 'dkprice/vim-easygrep'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -114,6 +114,7 @@ set novisualbell
 set t_vb=
 set tm=500
 set visualbell t_vb=
+set novb
 
 "}}}
 
@@ -198,6 +199,10 @@ set nobackup
 set nowb
 set noswapfile
 
+" Auto load updates
+set autoread
+
+set wildignore+=.svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*
 " }}}
 
 "{{{Look and Feel
@@ -219,7 +224,6 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
-set guifont=Source\ Code\ Pro\ for\ Powerline:h11
 
 if has("gui_running")
     set guioptions-=T
@@ -374,15 +378,28 @@ inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
 inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
 
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Highlighting
 map <silent> <leader><cr> :noh<cr>
 
+" Run from command line
+map <leader>cmd :!start cmd /k ""<left>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Copy and Paste using Alt+p
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"copy
+vmap <A-c> "+ygv"zy`>
+"paste (Alt-Shift-p to paste after normal cursor, Ctrl-p to paste over visual selection)
+nmap <A-v> "zgP
+nmap <A-S-v> "zgp
+imap <A-v> <C-r><C-o>z
+vmap <A-v> "zp`]
+cmap <A-v> <C-r><C-o>z
+"copy register
+autocmd FocusGained * let @z=@+
 
 "}}}
 
@@ -393,6 +410,8 @@ map <silent> <leader><cr> :noh<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>g :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
+let g:ctrlp_map = '<c-g>'
+let g:ctrlp_cmd = 'CtrlP'
 
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
@@ -407,54 +426,24 @@ let g:airline#extensions#tabline#enabled = 1
 " => NERDtree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <silent> <leader>nn :NERDTreeTabsToggle<CR>
-let NERDTreeWinSize     = 30
-let NERDTreeMouseMode   = 2
-let NERDTreeWinPos      = 'left'
-let NERDTreeHijackNetrw = 0
-let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.dropbox']
+let NERDTreeWinSize       = 30
+let NERDTreeMouseMode     = 2
+let NERDTreeWinPos        = 'left'
+let NERDTreeHijackNetrw   = 0
+let NERDTreeShowBookmarks = 1
+let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm']
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ack searching and cope displaying
-"    requires ack.vim - it's much better than vimgrep/grep
+" => EasyGrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("Ack \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-" When you press gv you Ack after the selected text
-vnoremap <silent> fv :call VisualSelection('gv', '')<CR>
-
-" Open Ack and put the cursor in the right position
-map <leader>f :Ack
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
+map <leader>f :Grep<Space>
+let g:EasyGrepRecursive = 1
+let g:EasyGrepCommand = 1
+let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*"
 
 "}}}
 
 filetype plugin indent on
 syntax on
+
