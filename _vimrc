@@ -205,8 +205,7 @@ set noswapfile
 " Auto load updates
 set autoread
 
-set wildignore+=.svn,.hg,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log
-
+set wildignore+=.svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*
 " }}}
 
 "{{{Look and Feel
@@ -446,10 +445,9 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 " => EasyGrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>f :Grep<Space>
-"let g:EasyGrepFilesToExclude = "*.png\*,*.gif\*,*.jpg\*"
 let g:EasyGrepRecursive = 1
-"let g:EasyGrepFilesToExclude = *.mp3,*.zip,*.wav,*.dat,*.png,*.jpg,*.gif,rake/**,solr/**,*.yml,tmp/**,*.log
-" '*.mp3','*.zip','*.wav','*.dat','*.png','*.jpg','*.gif','rake/**','solr/**','tmp/**','*.log'
+let g:EasyGrepCommand = 1
+let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*"
 
 "}}}
 
