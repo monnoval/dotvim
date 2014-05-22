@@ -20,8 +20,8 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-commentary'
 Plugin 'dkprice/vim-easygrep'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()         " required
+filetype plugin indent on " required
 
 "}}}
 " Auto Commands {{{
@@ -32,32 +32,6 @@ autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
-" Restore cursor position to where it was before
-augroup JumpCursorOnEdit
-   au!
-   autocmd BufReadPost *
-            \ if expand("<afile>:p:h") !=? $TEMP |
-            \   if line("'\"") > 1 && line("'\"") <= line("$") |
-            \     let JumpCursorOnEdit_foo = line("'\"") |
-            \     let b:doopenfold = 1 |
-            \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
-            \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
-            \        let b:doopenfold = 2 |
-            \     endif |
-            \     exe JumpCursorOnEdit_foo |
-            \   endif |
-            \ endif
-   " Need to postpone using "zv" until after reading the modelines.
-   autocmd BufWinEnter *
-            \ if exists("b:doopenfold") |
-            \   exe "normal zv" |
-            \   if(b:doopenfold > 1) |
-            \       exe  "+".1 |
-            \   endif |
-            \   unlet b:doopenfold |
-            \ endif
-augroup END
-
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -67,18 +41,15 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
-
-
 "}}}
 " Misc {{{
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
 set t_vb=
 set tm=500
 set visualbell t_vb=
-set novb
+set noerrorbells
+set novisualbell
 
 set winaltkeys=no " no alt key in menu
 
@@ -92,21 +63,16 @@ set grepprg=grep\ -nH\ $*
 " Cool tab completion stuff
 set wildmenu
 set wildmode=list:longest,full
-
-set mouse=a " Enable mouse support in console
-set backspace=2 " Got backspace?
-
-let g:clipbrdDefaultReg = '+' " since I use linux, I want this
 set nohidden " when I close a tab, remove the buffer
-
-" Set off the other paren
-highlight MatchParen ctermbg=4
-
 set nobackup " turn backup off, since most stuff is in vcs
 set nowb
 set noswapfile
-
 set autoread " Auto load updates
+
+" set off the other paren
+highlight MatchParen ctermbg=4
+
+set so=7 " set 7 lines to the cursor - when moving vertically using j/k
 
 "}}}
 " UI Layout {{{
@@ -114,8 +80,6 @@ set autoread " Auto load updates
 set showcmd    " shows what you are typing as a command
 set number     " show line numbers
 set cursorline " highlight current line
-
-set so=7 " set 7 lines to the cursor - when moving vertically using j/k
 
 "}}}
 " Spaces & Tabs {{{
@@ -129,9 +93,9 @@ set softtabstop=2
 "}}}
 " Searching {{{
 
-set ignorecase          " ignore case when searching
-set incsearch           " search as characters are entered
-set hlsearch            " highlight all matches
+set ignorecase " ignore case when searching
+set incsearch  " search as characters are entered
+set hlsearch   " highlight all matches
 
 " }}}
 " Files {{{
@@ -171,16 +135,15 @@ set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
 
 " }}}
 " Functions {{{
-"{{{ Open URL in browser
 
+" <leader>web on a url, opens up google chrome
 function! Browser ()
    let line = getline (".")
    let line = matchstr (line, "http[^   ]*")
    exec "!open -a Google\\ Chrome ".line
 endfunction
 
-"}}}
-"{{{Theme Rotating
+" Theme Rotating
 let themeindex=0
 function! RotateColorTheme()
    let y = -1
@@ -197,7 +160,7 @@ function! RotateColorTheme()
       endif
    endwhile
 endfunction
-" }}}
+
 "}}}
 " Mappings {{{
 
@@ -309,26 +272,19 @@ autocmd FocusGained * let @z=@+
 "}}}
 "{{{Plugins Settings
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CtrlP
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP
 map <leader>g :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 let g:ctrlp_map = '<c-g>'
 let g:ctrlp_cmd = 'CtrlP'
-
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Airline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDtree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDtree
 map <silent> <leader>nn :NERDTreeTabsToggle<CR>
 let NERDTreeWinSize       = 30
 let NERDTreeMouseMode     = 2
@@ -338,9 +294,7 @@ let NERDTreeShowBookmarks = 1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm']
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => EasyGrep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EasyGrep
 map <leader>f :Grep<Space>
 let g:EasyGrepRecursive = 1
 let g:EasyGrepCommand = 1
