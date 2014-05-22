@@ -1,3 +1,25 @@
+" Environment {{{
+
+" Identify platform
+silent function! OSX()
+  return has('macunix')
+endfunction
+silent function! LINUX()
+  return has('unix') && !has('macunix') && !has('win32unix')
+endfunction
+silent function! WINDOWS()
+  return  (has('win16') || has('win32') || has('win64'))
+endfunction
+
+" Windows Compatible {
+" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+" across (heterogeneous) systems easier.
+if WINDOWS()
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+" }
+
+"}}}
 " Vundle {{{
 
 set nocompatible " be iMproved, required
