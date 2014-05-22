@@ -205,6 +205,8 @@ set noswapfile
 " Auto load updates
 set autoread
 
+set wildignore+=.svn,.hg,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log
+
 " }}}
 
 "{{{Look and Feel
@@ -386,6 +388,9 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 " Highlighting
 map <silent> <leader><cr> :noh<cr>
 
+" Run from command line
+map <leader>cmd :!start cmd /k ""<left>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy and Paste using Alt+p
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -434,13 +439,17 @@ let NERDTreeMouseMode     = 2
 let NERDTreeWinPos        = 'left'
 let NERDTreeHijackNetrw   = 0
 let NERDTreeShowBookmarks = 1
-let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.dropbox']
+let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm']
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Easy Grep
+" => EasyGrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map <leader>f :! perl \\"C:\Users\User\vimfiles\ack-standalone.pl\\"
+map <leader>f :Grep<Space>
+"let g:EasyGrepFilesToExclude = "*.png\*,*.gif\*,*.jpg\*"
+let g:EasyGrepRecursive = 1
+"let g:EasyGrepFilesToExclude = *.mp3,*.zip,*.wav,*.dat,*.png,*.jpg,*.gif,rake/**,solr/**,*.yml,tmp/**,*.log
+" '*.mp3','*.zip','*.wav','*.dat','*.png','*.jpg','*.gif','rake/**','solr/**','tmp/**','*.log'
 
 "}}}
 
