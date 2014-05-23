@@ -15,7 +15,7 @@ endfunction
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if WINDOWS()
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  " set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 " }
 
@@ -25,8 +25,14 @@ endif
 set nocompatible " be iMproved, required
 filetype off     " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if WINDOWS()
+  set rtp+=~/vimfiles/bundle/Vundle.vim/
+  let path='~/vimfiles/bundle'
+  call vundle#begin(path)
+else
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+endif
 
 Plugin 'gmarik/Vundle.vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -83,77 +89,64 @@ syntax on
 set grepprg=grep\ -nH\ $*
 
 " Cool tab completion stuff
-set wildmenu
-set wildmode=list:longest,full
 set nohidden " when I close a tab, remove the buffer
 set nobackup " turn backup off, since most stuff is in vcs
 set nowb
 set noswapfile
 set autoread " Auto load updates
 
-" set off the other paren
-highlight MatchParen ctermbg=4
-
-set so=7 " set 7 lines to the cursor - when moving vertically using j/k
-
-"}}}
-" UI Layout {{{
-
-set showcmd    " shows what you are typing as a command
-set number     " show line numbers
-set cursorline " highlight current line
-
-"}}}
-" Spaces & Tabs {{{
-
+" Spaces & Tabs
 set autoindent  " who doesn't like autoindent?
 set expandtab   " spaces are better than a tab character
 set smarttab
 set shiftwidth=2
 set softtabstop=2
 
-"}}}
-" Searching {{{
-
-set ignorecase " ignore case when searching
-set incsearch  " search as characters are entered
-set hlsearch   " highlight all matches
-
-" }}}
-" Files {{{
-
 set wildignore+=.svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*
 
-" }}}
-" Look and Feel {{{
+"}}}
+" UI Layout {{{
 
-" Set font according to system
-if has("mac") || has("macunix")
-    set gfn=Source\ Code\ Pro\ for\ Powerline:h13,Menlo:h13
-elseif has("win16") || has("win32")
-    set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("linux")
-    set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("unix")
-    set gfn=Monospace\ 11
+set number     " show line numbers
+set cursorline " highlight current line
+
+if has('cmdline_info')
+  set ruler                   " Show the ruler
+  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+  set showcmd                 " Show partial commands in status line and
 endif
 
-" Remove Toolbar
-" Disable scrollbars (real hackers don't use scrollbars for navigation!)
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
+if has('statusline')
+  set laststatus=2
 
-if has("gui_running")
-   colorscheme Tomorrow
-else
-   colorscheme metacosm
+  " Broken down into easily includeable segments
+  set statusline=%<%f\                     " Filename
+  set statusline+=%w%h%m%r                 " Options
+" set statusline+=%{fugitive#statusline()} " Git Hotness
+  set statusline+=\ [%{&ff}/%Y]            " Filetype
+  set statusline+=\ [%{getcwd()}]          " Current dir
+  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 
-" Status line gnarliness
-set laststatus=2
-set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
+" set off the other paren
+highlight MatchParen ctermbg=4
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set nu                          " Line numbers on
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=7                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " }}}
 " Functions {{{
@@ -183,7 +176,7 @@ function! RotateColorTheme()
    endwhile
 endfunction
 
-"}}}
+" }}}
 " Mappings {{{
 
 let mapleader   = ","
@@ -291,8 +284,8 @@ cmap <A-v> <C-r><C-o>z
 "copy register
 autocmd FocusGained * let @z=@+
 
-"}}}
-"{{{Plugins Settings
+" }}}
+" Plugins {{{
 
 " CtrlP
 map <leader>g :CtrlP<cr>
@@ -320,6 +313,46 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 map <leader>f :Grep<Space>
 let g:EasyGrepRecursive = 1
 let g:EasyGrepCommand = 1
-let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*"
+let g:EasyGrepSearchCurrentBufferDir=0
+let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*"
 
-"}}}
+
+" }}}
+" GUI Settings {{{
+
+
+" GVIM- (here instead of .gvimrc)
+if has('gui_running')
+  colorscheme Tomorrow
+
+  " Remove Toolbar
+  " Disable scrollbars (real hackers don't use scrollbars for navigation!)
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=l
+  set guioptions-=L
+  set guioptions-=T           " Remove the toolbar
+  set lines=40                " 40 lines of text instead of 24
+  nmap <C-S-tab>       :tabprevious <CR>
+  map  <C-S-tab>       :tabprevious <CR>
+  imap <C-S-tab> <Esc> :tabprevious <CR>i
+  nmap <C-tab>         :tabnext     <CR>
+  map  <C-tab>         :tabnext     <CR>
+  imap <C-tab>   <Esc> :tabnext     <CR>i
+
+  if LINUX() && has("gui_running")
+    set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+  elseif OSX() && has("gui_running")
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+  elseif WINDOWS() && has("gui_running")
+    set guifont=Consolas:h10
+  endif
+else
+  if &term == 'xterm' || &term == 'screen'
+    set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+  endif
+else
+   colorscheme metacosm
+endif
+
+" }}}
