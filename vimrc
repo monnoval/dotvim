@@ -35,11 +35,11 @@ else
 endif
 
 Plugin 'gmarik/Vundle.vim'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
-Bundle "kien/ctrlp.vim"
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vylight'
 Plugin 'chriskempson/vim-tomorrow-theme'
