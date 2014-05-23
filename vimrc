@@ -47,6 +47,12 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-commentary'
 Plugin 'dkprice/vim-easygrep'
+Plugin 'ap/vim-css-color'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-speeddating'
+Plugin 'JulesWang/css.vim'
+
 
 call vundle#end()         " required
 filetype plugin indent on " required
