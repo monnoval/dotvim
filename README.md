@@ -4,7 +4,7 @@ This Vim configuration is meant for both macvim and gvim on windows. I switch to
 
 ## Features
 
-- Works both Mac and Windows
+- Works both macvim and gvim in windows
 - File browser in left side of screen
 - Easy move between multiple windows and tabs
 
