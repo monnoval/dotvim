@@ -108,8 +108,6 @@ set smarttab
 set shiftwidth=2
 set softtabstop=2
 
-set wildignore+=.svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*
-
 " }}}
 " UI Layout {{{
 
@@ -265,13 +263,21 @@ autocmd FocusGained * let @z=@+
 " }}}
 " Plugins {{{
 
+set wildignore+=.svn,.hg,CVS,.git,.cache
+set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*
+set wildignore+=*.min.*
+
+if WINDOWS()
+  set wildignore+=*\\rake\\*,*\\tmp\\*,*\\build\\*
+else
+  set wildignore+=*/rake/*,*/tmp/*,*/build/*
+
 " CtrlP
 map <leader>g :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 let g:ctrlp_map = '<c-g>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
 " Airline
 let g:airline_powerline_fonts = 1
