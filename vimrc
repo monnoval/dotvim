@@ -27,22 +27,31 @@ else
 endif
 
 Plugin 'gmarik/Vundle.vim'
+
+" Better navigation, search, find, replace
+Plugin 'kien/ctrlp.vim'
+Plugin 'dkprice/vim-easygrep'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+
+" Better css, html editing
+Plugin 'tpope/vim-haml'
+Plugin 'ap/vim-css-color'
+Plugin 'JulesWang/css.vim'
+
+" Snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
+
+" Better editing
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-speeddating'
-Plugin 'kien/ctrlp.vim'
-Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'ap/vim-css-color'
 Plugin 'Raimondi/delimitMate'
-Plugin 'JulesWang/css.vim'
-Plugin 'vylight'
+
+" Look and feel
+Plugin 'bling/vim-airline'
 Plugin 'chriskempson/vim-tomorrow-theme'
 
 call vundle#end()         " required
@@ -144,34 +153,6 @@ set scrolloff=7                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-
-" }}}
-" Functions {{{
-
-" <leader>web on a url, opens up google chrome
-function! Browser ()
-   let line = getline (".")
-   let line = matchstr (line, "http[^   ]*")
-   exec "!open -a Google\\ Chrome ".line
-endfunction
-
-" Theme Rotating
-let themeindex=0
-function! RotateColorTheme()
-   let y = -1
-   while y == -1
-      let colorstring = "Tomorrow#vylight#ron#blue#elflord#evening#koehler#murphy#pablo#desert#torte#"
-      let x = match( colorstring, "#", g:themeindex )
-      let y = match( colorstring, "#", x + 1 )
-      let g:themeindex = x + 1
-      if y == -1
-         let g:themeindex = 0
-      else
-         let themestring = strpart(colorstring, x + 1, y - x - 1)
-         return ":colorscheme ".themestring
-      endif
-   endwhile
-endfunction
 
 " }}}
 " Mappings {{{
@@ -312,7 +293,6 @@ let g:EasyGrepRecursive = 1
 let g:EasyGrepCommand = 1
 let g:EasyGrepSearchCurrentBufferDir=0
 let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*"
-
 
 " }}}
 " GUI Settings {{{
