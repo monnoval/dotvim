@@ -11,15 +11,7 @@ silent function! WINDOWS()
   return  (has('win16') || has('win32') || has('win64'))
 endfunction
 
-" Windows Compatible {
-" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-" across (heterogeneous) systems easier.
-if WINDOWS()
-  " set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
-" }
-
-"}}}
+" }}}
 " Vundle {{{
 
 set nocompatible " be iMproved, required
@@ -39,25 +31,24 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-speeddating'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
-Plugin 'vylight'
-Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'tpope/vim-commentary'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'ap/vim-css-color'
 Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-speeddating'
 Plugin 'JulesWang/css.vim'
-
+Plugin 'vylight'
+Plugin 'chriskempson/vim-tomorrow-theme'
 
 call vundle#end()         " required
 filetype plugin indent on " required
 
-"}}}
+" }}}
 " Auto Commands {{{
 
 " Automatically cd into the directory that the file is in
@@ -75,7 +66,7 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
-"}}}
+" }}}
 " Misc {{{
 
 " No annoying sound on errors
@@ -110,7 +101,7 @@ set softtabstop=2
 
 set wildignore+=.svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,rake/**,solr/**,tmp/**,*.log,*.lock,*.min.*
 
-"}}}
+" }}}
 " UI Layout {{{
 
 set number     " show line numbers
@@ -326,7 +317,6 @@ let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class
 " }}}
 " GUI Settings {{{
 
-
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
   colorscheme Tomorrow
@@ -358,7 +348,7 @@ else
     set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
   endif
 else
-   colorscheme metacosm
+  colorscheme metacosm
 endif
 
 " }}}
