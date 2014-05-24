@@ -188,18 +188,11 @@ map <silent> <S-Space> <C-w>=
 " Edit vimrc ,ev
 nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
 
-" Edit gvimrc ,gv
-nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
-
 " Up and down are more logical with g..
 nnoremap <silent> k gk
 nnoremap <silent> j gj
 inoremap <silent> <Up> <Esc>gka
 inoremap <silent> <Down> <Esc>gja
-
-" Create Blank Newlines and stay in Normal mode
-nnoremap <silent> zj o<Esc>
-nnoremap <silent> zk O<Esc>
 
 " Space will toggle folds!
 nnoremap <space> za
@@ -256,7 +249,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 " NERDtree
-map <silent> <leader>nn :NERDTreeTabsToggle<CR>
+map <silent> <leader>n :NERDTreeTabsToggle<CR>
 let NERDTreeWinSize       = 30
 let NERDTreeMouseMode     = 2
 let NERDTreeWinPos        = 'left'
