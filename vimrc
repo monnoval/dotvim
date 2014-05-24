@@ -79,11 +79,11 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " Misc {{{
 
 " No annoying sound on errors
+set noerrorbells
+set novisualbell
 set t_vb=
 set tm=500
 set visualbell t_vb=
-set noerrorbells
-set novisualbell
 
 set winaltkeys=no " no alt key in menu
 
@@ -165,19 +165,7 @@ nmap ;; i
 nmap <leader>w :w!<cr>
 nmap <leader>a :wa!<cr>
 nmap <leader>x :x!<cr>
-nmap <leader>q :q<cr>
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
-
-" Useful mappings for managing tabs
-map <leader>to :tabonly<CR>
-map <leader>tc :tabclose<CR>
-map <leader>tm :tabmove<CR>
-map <leader>tn :tabnext<CR>
+nmap <leader>q :bd!<cr>
 
 " Horizontal and vertical split respectively
 map <silent> <leader>s :split<cr>
@@ -197,26 +185,10 @@ map <silent> <S-Down>  <C-W>5-
 map <silent> <S-Up>    <C-W>5+
 map <silent> <S-Space> <C-w>=
 
-" Open Url on this line with the browser ,web
-map <Leader>web :call Browser ()<CR>
-" http://google.com
-
-" Next Tab
-nnoremap <silent> <C-Tab> :tabnext<CR>
-
-" Previous Tab
-nnoremap <silent> <C-Left> :tabprevious<CR>
-
-" New Tab
-nnoremap <silent> <C-t> :tabnew<CR>
-
-" Rotate Color Scheme <F8>
-nnoremap <silent> <F8> :execute RotateColorTheme()<CR>
-
-" Edit vimrc \ev
+" Edit vimrc ,ev
 nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
 
-" Edit gvimrc \gv
+" Edit gvimrc ,gv
 nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 
 " Up and down are more logical with g..
@@ -290,8 +262,10 @@ let NERDTreeMouseMode     = 2
 let NERDTreeWinPos        = 'left'
 let NERDTreeHijackNetrw   = 0
 let NERDTreeShowBookmarks = 1
+let NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm']
 let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_autoclose = 0
 
 " EasyGrep
 map <leader>f :Grep<Space>
