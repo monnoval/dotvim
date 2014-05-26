@@ -84,6 +84,9 @@ set novisualbell
 set t_vb=
 set tm=500
 set visualbell t_vb=
+if WINDOWS()
+  set novb
+endif
 
 set winaltkeys=no " no alt key in menu
 
@@ -149,8 +152,13 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=7                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
-set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+if WINDOWS()
+  " do nothing
+else
+  set list
+  set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+endif
+
 
 " }}}
 " Mappings {{{
@@ -186,7 +194,11 @@ map <silent> <S-Up>    <C-W>5+
 map <silent> <S-Space> <C-w>=
 
 " Edit vimrc ,ev
-nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
+if WINDOWS()
+  nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/_vimrc<CR>
+else
+  nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
+endif
 
 " Up and down are more logical with g..
 nnoremap <silent> k gk
@@ -236,6 +248,7 @@ if WINDOWS()
   set wildignore+=*\\rake\\*,*\\tmp\\*,*\\build\\*
 else
   set wildignore+=*/rake/*,*/tmp/*,*/build/*
+endif
 
 " CtrlP
 map <leader>g :CtrlP<cr>
@@ -245,8 +258,16 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_height = 20
 
 " Airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+if WINDOWS()
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_symbols = {}
+  let g:airline_symbols.space = ' '
+else
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+endif
 
 " NERDtree
 map <silent> <leader>n :NERDTreeTabsToggle<CR>
@@ -297,11 +318,11 @@ if has('gui_running')
     set guifont=Consolas:h10
   endif
 else
+  colorscheme metacosm
+
   if &term == 'xterm' || &term == 'screen'
     set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
   endif
-else
-  colorscheme metacosm
 endif
 
 " }}}
