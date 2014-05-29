@@ -32,7 +32,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 
 " Better css, html editing
 Plugin 'tpope/vim-haml'
@@ -272,7 +271,11 @@ else
 endif
 
 " NERDtree
-map <silent> <leader>n :NERDTreeTabsToggle<CR>
+nmap <silent> <leader>n :call g:WorkaroundNERDTreeToggle()<CR>
+function! g:WorkaroundNERDTreeToggle()
+  try | :NERDTreeToggle | catch | :NERDTree | endtry
+endfunction
+" map <silent> <leader>n :NERDTreeTabsToggle<CR>
 let NERDTreeWinSize       = 30
 let NERDTreeMouseMode     = 2
 let NERDTreeWinPos        = 'left'
@@ -280,8 +283,8 @@ let NERDTreeHijackNetrw   = 0
 let NERDTreeShowBookmarks = 1
 let NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm']
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:nerdtree_tabs_autoclose = 0
+" let g:nerdtree_tabs_open_on_gui_startup = 0
+" let g:nerdtree_tabs_autoclose = 0
 
 " EasyGrep
 map <leader>f :Grep<Space>
