@@ -56,7 +56,7 @@ This Vim configuration is meant for both macvim and gvim on windows. I switch to
 
 #### Plugins
 
-- `,g` use ctrlp
+- `,g` use ctrlp to search files
 - `,f` find string in all files using easygrep
 - `,n` open file browser, using nerdtree
 
