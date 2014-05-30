@@ -308,12 +308,14 @@ if has('gui_running')
   set guioptions-=L
   set guioptions-=T           " Remove the toolbar
   set lines=40                " 40 lines of text instead of 24
-  nmap <C-S-tab>       :tabprevious <CR>
-  map  <C-S-tab>       :tabprevious <CR>
-  imap <C-S-tab> <Esc> :tabprevious <CR>i
-  nmap <C-tab>         :tabnext     <CR>
-  map  <C-tab>         :tabnext     <CR>
-  imap <C-tab>   <Esc> :tabnext     <CR>i
+
+  " tab navigation like firefox
+  nnoremap <C-S-tab> :tabprevious<CR>
+  nnoremap <C-tab>   :tabnext<CR>
+  nnoremap <C-t>     :tabnew<CR>
+  inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+  inoremap <C-tab>   <Esc>:tabnext<CR>i
+  inoremap <C-t>     <Esc>:tabnew<CR>
 
   if LINUX() && has("gui_running")
     set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
