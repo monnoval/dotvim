@@ -38,6 +38,10 @@ Plugin 'tpope/vim-haml'
 Plugin 'ap/vim-css-color'
 Plugin 'JulesWang/css.vim'
 
+" Better markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 " Snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -164,6 +168,8 @@ endif
 
 " }}}
 " Mappings {{{
+
+command E Ex
 
 let mapleader   = ","
 let g:mapleader = ","
@@ -300,6 +306,10 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Vim Markdown
+let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_frontmatter=1
 
 " }}}
 " GUI Settings {{{
