@@ -47,10 +47,10 @@ Plugin 'honza/vim-snippets'
 
 " Better editing
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-speeddating'
 Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'w0rp/ale'
 
 " Look and feel
 Plugin 'bling/vim-airline'
@@ -117,7 +117,6 @@ set shiftwidth=2
 " UI Layout {{{
 
 set number         " show line numbers
-" set cursorline     " highlight current line
 set nocursorline   " Don't paint cursor line
 set nocursorcolumn " Don't paint cursor column
 set lazyredraw     " Wait to redraw
@@ -146,8 +145,7 @@ highlight MatchParen ctermbg=4
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
-" set showmatch                   " Show matching brackets/parenthesis
-set noshowmatch
+set noshowmatch                 " No show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
 set winminheight=0              " Windows can be 0 line high
@@ -324,6 +322,16 @@ let g:vim_markdown_frontmatter=1
 if executable('rg')
 	let g:gutentags_file_list_command = 'rg --files'
 endif
+
+" ALE
+" let g:ale_completion_enabled = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'php': ['php_cs_fixer']
+\}
+noremap <leader>lf :ALEFix<CR>
 
 " }}}
 " GUI Settings {{{
