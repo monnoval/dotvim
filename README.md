@@ -1,10 +1,10 @@
 # Mon's VIM settings
 
-This Vim configuration is meant for both macvim and gvim on windows. I switch to both Mac and Windows daily for both work and personal stuff. Having one Vim setting for both is easily maintainable.
+This Vim configuration was intended for both macvim and gvim on windows.
+Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 
 ## Features
 
-- Works both macvim and gvim in windows
 - File browser in left side of screen
 - Easy move between multiple windows and tabs
 

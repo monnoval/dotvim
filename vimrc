@@ -53,10 +53,12 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-speeddating'
 Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/vim-easy-align'
+Plugin 'w0rp/ale'
+Plugin 'ludovicchabant/vim-gutentags'
 
 " Look and feel
 Plugin 'bling/vim-airline'
-Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'jonathanfilip/vim-lucius'
 
 call vundle#end()         " required
 filetype plugin indent on " required
@@ -108,12 +110,11 @@ set nowb
 set noswapfile
 set autoread " Auto load updates
 
-" Spaces & Tabs
+" Using tabs only
 set autoindent  " who doesn't like autoindent?
-set expandtab   " spaces are better than a tab character
 set smarttab
+set tabstop=2
 set shiftwidth=2
-set softtabstop=2
 
 " }}}
 " UI Layout {{{
@@ -156,15 +157,11 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=7                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
-set list
 
-" Highlight problematic whitespace
-if WINDOWS()
-  set listchars=tab:\|\�,trail:~,extends:>,precedes:<
-else
-  set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+if has("gui_running")
+	set list
+	set listchars=tab:›\ ,trail:•,extends:#,nbsp:. "
 endif
-
 
 " }}}
 " Mappings {{{
@@ -195,11 +192,13 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Maps Alt-[h,j,k,l] to resizing a window split
-map <silent> <S-Left>  <C-w>5<
-map <silent> <S-Right> <C-w>5>
-map <silent> <S-Down>  <C-W>5-
-map <silent> <S-Up>    <C-W>5+
-map <silent> <S-Space> <C-w>=
+" map <silent> <S-Left>  <C-w>5<
+" map <silent> <S-Right> <C-w>5>
+" map <silent> <S-Down>  <C-W>5-
+" map <silent> <S-Up>    <C-W>5+
+" map <silent> <S-Space> <C-w>=
+nnoremap <silent> <Leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "vertical resize " . (winheight(0) * 2/3)<CR>
 
 " Edit vimrc ,ev
 if WINDOWS()
@@ -260,10 +259,16 @@ endif
 
 " CtrlP
 map <leader>g :CtrlP<cr>
+map <leader>t :CtrlPTag<cr>
 map <c-b> :CtrlPBuffer<cr>
 let g:ctrlp_map = '<c-g>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_height = 20
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = [
+    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+    \ 'find %s -type f'
+    \ ]
 
 " Airline
 if WINDOWS()
@@ -273,8 +278,10 @@ if WINDOWS()
   let g:airline_symbols = {}
   let g:airline_symbols.space = ' '
 else
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#enabled = 1
+  if has("gui_running")
+		let g:airline_powerline_fonts = 1
+		let g:airline#extensions#tabline#enabled = 1
+	endif
 endif
 
 " NERDtree
@@ -289,7 +296,7 @@ let NERDTreeWinPos        = 'left'
 let NERDTreeHijackNetrw   = 0
 let NERDTreeShowBookmarks = 1
 let NERDTreeAutoDeleteBuffer=1
-let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.git','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm']
+let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]']
 " let g:nerdtree_tabs_open_on_gui_startup = 0
 " let g:nerdtree_tabs_autoclose = 0
 
@@ -311,12 +318,28 @@ nmap ga <Plug>(EasyAlign)
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
 
+" ALE
+let g:ale_completion_enabled = 1
+let b:ale_fixers = {
+\   'javascript': ['prettier', 'eslint'],
+\   'php': ['php']
+\}
+
+" vim-gutentags
+if executable('rg')
+	let g:gutentags_file_list_command = 'rg --files'
+endif
+
 " }}}
 " GUI Settings {{{
 
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
-  colorscheme Tomorrow
+	" let ayucolor="light"
+  " colorscheme ayu
+  " colorscheme base16-tomorrow
+	colorscheme lucius
+	LuciusLight
 
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
@@ -338,12 +361,12 @@ if has('gui_running')
   if LINUX() && has("gui_running")
     set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
   elseif OSX() && has("gui_running")
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
   elseif WINDOWS() && has("gui_running")
     set guifont=Consolas:h10
   endif
 else
-  colorscheme metacosm
+  " colorscheme metacosm
 
   if &term == 'xterm' || &term == 'screen'
     set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
