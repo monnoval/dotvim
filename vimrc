@@ -34,12 +34,9 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'scrooloose/nerdtree'
 
 " Better css, html editing
-Plugin 'tpope/vim-haml'
-Plugin 'ap/vim-css-color'
 Plugin 'JulesWang/css.vim'
 
 " Better markdown
-Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
 " Snippets
@@ -53,7 +50,6 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-speeddating'
 Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/vim-easy-align'
-Plugin 'w0rp/ale'
 Plugin 'ludovicchabant/vim-gutentags'
 
 " Look and feel
@@ -101,6 +97,7 @@ set foldmethod=marker " Folding Stuffs
 " Needed for Syntax Highlighting and stuff
 filetype plugin indent on
 syntax on
+set synmaxcol=128
 set grepprg=grep\ -nH\ $*
 
 " Cool tab completion stuff
@@ -119,8 +116,12 @@ set shiftwidth=2
 " }}}
 " UI Layout {{{
 
-set number     " show line numbers
-set cursorline " highlight current line
+set number         " show line numbers
+" set cursorline     " highlight current line
+set nocursorline   " Don't paint cursor line
+set nocursorcolumn " Don't paint cursor column
+set lazyredraw     " Wait to redraw
+let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
 if has('cmdline_info')
   set ruler                   " Show the ruler
@@ -145,7 +146,8 @@ highlight MatchParen ctermbg=4
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
-set showmatch                   " Show matching brackets/parenthesis
+" set showmatch                   " Show matching brackets/parenthesis
+set noshowmatch
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
 set winminheight=0              " Windows can be 0 line high
@@ -317,13 +319,6 @@ nmap ga <Plug>(EasyAlign)
 " Vim Markdown
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
-
-" ALE
-let g:ale_completion_enabled = 1
-let b:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   'php': ['php']
-\}
 
 " vim-gutentags
 if executable('rg')
