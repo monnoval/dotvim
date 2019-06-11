@@ -51,10 +51,12 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'w0rp/ale'
+Plugin 'terryma/vim-multiple-cursors'
 
 " Look and feel
 Plugin 'bling/vim-airline'
 Plugin 'jonathanfilip/vim-lucius'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()         " required
 filetype plugin indent on " required
@@ -158,10 +160,10 @@ set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=7                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 
-if has("gui_running")
-	set list
-	set listchars=tab:›\ ,trail:•,extends:#,nbsp:. "
-endif
+" if has("gui_running")
+" 	set list
+" 	set listchars=tab: \ ,trail:•,extends:#,nbsp:. "
+" endif
 
 " }}}
 " Mappings {{{
@@ -338,11 +340,11 @@ noremap <leader>lf :ALEFix<CR>
 
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
-	" let ayucolor="light"
-  " colorscheme ayu
-  " colorscheme base16-tomorrow
-	colorscheme lucius
-	LuciusLight
+	" colorscheme lucius
+	" LuciusLight
+	set background=light
+	colorscheme solarized
+	let g:solarized_visibility = "low"
 
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
