@@ -22,7 +22,6 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 
 - [vundle](http://github.com/gmarik/Vundle.vim)
 - [ctrlp](http://github.com/kien/ctrlp.vim)
-- [ack](https://github.com/mileszs/ack.vim)
 - [nerdtree](http://github.com/scrooloose/nerdtree)
 - [snipmate](http://github.com/garbas/vim-snipmate)
 - [commentary](http://github.com/tpope/vim-commentary)
@@ -30,6 +29,7 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 - [airline](http://github.com/bling/vim-airline)
 - [lucius](https://github.com/jonathanfilip/vim-lucius)
 - [ale](https://github.com/w0rp/ale)
+- [fzf](https://github.com/junegunn/fzf.vim)
 
 ### Key bindings
 

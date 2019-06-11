@@ -28,8 +28,8 @@ endif
 Plugin 'gmarik/Vundle.vim'
 
 " Better navigation, search, find, replace
-Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
 
 " Better css, html editing
@@ -98,7 +98,6 @@ set foldmethod=marker " Folding Stuffs
 " Needed for Syntax Highlighting and stuff
 filetype plugin indent on
 syntax on
-set synmaxcol=128
 set grepprg=grep\ -nH\ $*
 
 " Cool tab completion stuff
@@ -198,8 +197,12 @@ map <C-l> <C-W>l
 " map <silent> <S-Down>  <C-W>5-
 " map <silent> <S-Up>    <C-W>5+
 " map <silent> <S-Space> <C-w>=
-nnoremap <silent> <Leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "vertical resize " . (winheight(0) * 2/3)<CR>
+" nnoremap <silent> <Leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
+" nnoremap <silent> <Leader>- :exe "vertical resize " . (winheight(0) * 2/3)<CR>
+nmap <D-S-left> :vertical resize -5<cr>
+nmap <D-S-down> :resize +5<cr>
+nmap <D-S-up> :resize -5<cr>
+nmap <D-S-right> :vertical resize +5<cr>
 
 " Edit vimrc ,ev
 if WINDOWS()
@@ -258,18 +261,34 @@ else
   set wildignore+=*/rake/*,*/tmp/*,*/build/*
 endif
 
-" CtrlP
-map <leader>g :CtrlP<cr>
-map <leader>t :CtrlPTag<cr>
-map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_map = '<c-g>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_max_height = 20
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_user_command = [
-    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
-    \ 'find %s -type f'
-    \ ]
+map <leader>g :Files<cr>
+map <leader>t :Tags<cr>
+map <leader>f :Ag!<cr>
+
+" FZF
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let $FZF_DEFAULT_COMMAND = 'ag --nocolor -g ""'
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>, <bang>0)
+" command! -bang -nargs=* Ag
+"   \ call fzf#vim#ag(<q-args>,
+"   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \                 <bang>0)
 
 " Airline
 if WINDOWS()
@@ -300,12 +319,6 @@ let NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]']
 " let g:nerdtree_tabs_open_on_gui_startup = 0
 " let g:nerdtree_tabs_autoclose = 0
-
-" Ack.vim using the_silver_searcher (ag)
-map <leader>f :Ack<Space>
-if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
-endif
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
