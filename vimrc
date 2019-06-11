@@ -1,5 +1,4 @@
 " Environment {{{
-
 " Identify platform
 silent function! OSX()
   return has('macunix')
@@ -30,7 +29,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Better navigation, search, find, replace
 Plugin 'kien/ctrlp.vim'
-Plugin 'dkprice/vim-easygrep'
+Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 
 " Better css, html editing
@@ -302,12 +301,11 @@ let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.h
 " let g:nerdtree_tabs_open_on_gui_startup = 0
 " let g:nerdtree_tabs_autoclose = 0
 
-" EasyGrep
-map <leader>f :Grep<Space>
-let g:EasyGrepRecursive = 1
-let g:EasyGrepCommand = 1
-let g:EasyGrepSearchCurrentBufferDir=0
-let g:EasyGrepFilesToExclude = ".svn,.hg,CVS,.git,.cache,*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*"
+" Ack.vim using the_silver_searcher (ag)
+map <leader>f :Ack<Space>
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
@@ -340,20 +338,19 @@ noremap <leader>lf :ALEFix<CR>
 
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
-	" colorscheme lucius
-	" LuciusLight
-	set background=light
-	colorscheme solarized
-	let g:solarized_visibility = "low"
+	colorscheme lucius
+	LuciusLight
+	" set background=light
+	" colorscheme solarized
 
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
-  set guioptions-=r
-  set guioptions-=R
+  " set guioptions-=r
+  " set guioptions-=R
   set guioptions-=l
   set guioptions-=L
-  set guioptions-=T           " Remove the toolbar
-  set lines=40                " 40 lines of text instead of 24
+  set guioptions-=T " Remove the toolbar
+  set lines=40      " 40 lines of text instead of 24
 
   " tab navigation like firefox
   nnoremap <C-S-tab> :tabprevious<CR>
