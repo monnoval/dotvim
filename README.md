@@ -3,6 +3,12 @@
 This Vim configuration was intended for both macvim and gvim on windows.
 Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 
+## Requirements
+
+- rg - https://github.com/BurntSushi/ripgrep
+- ag - https://github.com/ggreer/the_silver_searcher
+- ctags -https://formulae.brew.sh/formula/ctags
+
 ## Features
 
 - File browser in left side of screen
@@ -11,20 +17,19 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 ## Todo
 
 - Use fugitive for git
-- Use fugitive equivalent for hg
 
 ### Plugins
 
 - [vundle](http://github.com/gmarik/Vundle.vim)
 - [ctrlp](http://github.com/kien/ctrlp.vim)
-- [easygrep](http://github.com/dkprice/vim-easygrep)
+- [ack](https://github.com/mileszs/ack.vim)
 - [nerdtree](http://github.com/scrooloose/nerdtree)
 - [snipmate](http://github.com/garbas/vim-snipmate)
 - [commentary](http://github.com/tpope/vim-commentary)
-- [speeddating](http://github.com/tpope/vim-speeddating)
 - [delimitMate](http://github.com/Raimondi/delimitMate)
 - [airline](http://github.com/bling/vim-airline)
-- [tomorrow-theme](http://github.com/chriskempson/vim-tomorrow-theme)
+- [lucius](https://github.com/jonathanfilip/vim-lucius)
+- [ale](https://github.com/w0rp/ale)
 
 ### Key bindings
 
