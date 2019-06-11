@@ -31,6 +31,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'dyng/ctrlsf.vim'
 
 " Better css, html editing
 Plugin 'JulesWang/css.vim'
@@ -62,9 +63,6 @@ filetype plugin indent on " required
 
 " }}}
 " Auto Commands {{{
-
-" Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -154,8 +152,6 @@ set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=7                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 
 " if has("gui_running")
@@ -261,11 +257,10 @@ else
   set wildignore+=*/rake/*,*/tmp/*,*/build/*
 endif
 
+" FZF
 map <leader>g :Files<cr>
 map <leader>t :Tags<cr>
 map <leader>f :Ag!<cr>
-
-" FZF
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -280,7 +275,6 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
 let $FZF_DEFAULT_COMMAND = 'ag --nocolor -g ""'
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>, <bang>0)
@@ -289,6 +283,10 @@ command! -bang -nargs=* Ag
 "   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
 "   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
 "   \                 <bang>0)
+
+" ctrlsf.vim
+nmap <D-F> <Plug>CtrlSFPrompt
+vmap <D-F> <Plug>CtrlSFVwordExec
 
 " Airline
 if WINDOWS()
