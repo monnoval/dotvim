@@ -32,6 +32,7 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'dyng/ctrlsf.vim'
+Plugin 'svermeulen/vim-cutlass'
 
 " Better css, html editing
 Plugin 'JulesWang/css.vim'
@@ -56,7 +57,6 @@ Plugin 'terryma/vim-multiple-cursors'
 " Look and feel
 Plugin 'bling/vim-airline'
 Plugin 'jonathanfilip/vim-lucius'
-Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()         " required
 filetype plugin indent on " required
@@ -351,8 +351,6 @@ noremap <leader>lf :ALEFix<CR>
 if has('gui_running')
 	colorscheme lucius
 	LuciusLight
-	" set background=light
-	" colorscheme solarized
 
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
