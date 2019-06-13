@@ -154,10 +154,11 @@ set wildmode=list:longest,full  " Command <Tab> completion, list matches, then l
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set foldenable                  " Auto fold code
 
-" if has("gui_running")
-" 	set list
-" 	set listchars=tab: \ ,trail:•,extends:#,nbsp:. "
-" endif
+if has("gui_running")
+	set list
+	set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+	set invlist
+endif
 
 " }}}
 " Mappings {{{
@@ -188,13 +189,6 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Maps Alt-[h,j,k,l] to resizing a window split
-" map <silent> <S-Left>  <C-w>5<
-" map <silent> <S-Right> <C-w>5>
-" map <silent> <S-Down>  <C-W>5-
-" map <silent> <S-Up>    <C-W>5+
-" map <silent> <S-Space> <C-w>=
-" nnoremap <silent> <Leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
-" nnoremap <silent> <Leader>- :exe "vertical resize " . (winheight(0) * 2/3)<CR>
 nmap <D-S-left> :vertical resize -5<cr>
 nmap <D-S-down> :resize +5<cr>
 nmap <D-S-up> :resize -5<cr>
@@ -230,6 +224,9 @@ map <silent> <leader><cr> :noh<cr>
 " Run from command line
 map <leader>cmd :!start cmd /k ""<left>
 
+" toggle showing of invisible characters
+nmap <leader>l :set invlist<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy and Paste using Alt+p
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -260,7 +257,7 @@ endif
 " FZF
 map <leader>g :Files<cr>
 map <leader>t :Tags<cr>
-map <leader>f :Ag!<cr>
+map <leader>f :Rg!<cr>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -275,18 +272,24 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-let $FZF_DEFAULT_COMMAND = 'ag --nocolor -g ""'
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>, <bang>0)
-" command! -bang -nargs=* Ag
-"   \ call fzf#vim#ag(<q-args>,
-"   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-"   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \                 <bang>0)
+let $FZF_DEFAULT_COMMAND = 'rg --files --follow'
+
+set grepprg=rg\ --vimgrep
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 )
+
 
 " ctrlsf.vim
 nmap <D-F> <Plug>CtrlSFPrompt
 vmap <D-F> <Plug>CtrlSFVwordExec
+
+" vim-cutlass
+nnoremap m d
+xnoremap m d
+nnoremap mm dd
+nnoremap M D
 
 " Airline
 if WINDOWS()
