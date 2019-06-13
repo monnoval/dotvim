@@ -6,7 +6,6 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 ## Requirements
 
 - rg - https://github.com/BurntSushi/ripgrep
-- ag - https://github.com/ggreer/the_silver_searcher
 - ctags -https://formulae.brew.sh/formula/ctags
 
 ## Features
@@ -16,7 +15,7 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 
 ## Todo
 
-- Use fugitive for git
+- (none fo now maybe)
 
 ### Plugins
 
@@ -30,6 +29,7 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 - [lucius](https://github.com/jonathanfilip/vim-lucius)
 - [ale](https://github.com/w0rp/ale)
 - [fzf](https://github.com/junegunn/fzf.vim)
+- [fugitive](https://github.com/tpope/vim-fugitive)
 
 ### Key bindings
 

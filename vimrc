@@ -33,6 +33,7 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'svermeulen/vim-cutlass'
+Plugin 'tpope/vim-fugitive'
 
 " Better css, html editing
 Plugin 'JulesWang/css.vim'
@@ -51,8 +52,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'w0rp/ale'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'w0rp/ale'
 
 " Look and feel
 Plugin 'bling/vim-airline'
