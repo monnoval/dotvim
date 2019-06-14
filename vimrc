@@ -228,6 +228,9 @@ map <leader>cmd :!start cmd /k ""<left>
 " toggle showing of invisible characters
 nmap <leader>l :set invlist<cr>
 
+" toggle showing of invisible characters
+nmap <leader>rt :set noet<cr>:%retab!<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy and Paste using Alt+p
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -343,9 +346,16 @@ endif
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'php': ['php_cs_fixer']
+\  'javascript': ['prettier'],
+\  'typescript': ['prettier', 'eslint', 'tslint'],
+\  'json': ['prettier'],
+\  'markdown': ['prettier'],
+\  'yaml': ['prettier'],
+\  'css': ['prettier'],
+\  'php': ['php_cs_fixer'],
 \}
+let g:ale_php_cs_fixer_use_global = 1
+
 noremap <leader>lf :ALEFix<CR>
 
 " }}}

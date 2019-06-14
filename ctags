@@ -1,0 +1,21 @@
+# Basic options
+--recurse=yes
+--tag-relative=yes
+--exclude=.git
+--exclude=.svn
+--exclude=.bundle
+--exclude=node_modules
+--exclude=bower
+--exclude=build-dev
+--exclude=build-prod
+--exclude=log
+--exclude=tmp
+--exclude=*.pyc
+--exclude=*.pyo
+--exclude=*.min.*
+
+# PHP
+--langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cf-v
+
+# Javascript
+# --langmap=javascript:.js.es6.es.jsx--javascript-kinds=-c-f-m-p-v
