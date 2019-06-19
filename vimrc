@@ -345,13 +345,19 @@ endif
 " let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_linters = {
+  \ 'javascript': [] ,
+  \ }
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'typescript': ['prettier', 'eslint', 'tslint'],
 \  'json': ['prettier'],
 \  'markdown': ['prettier'],
 \  'yaml': ['prettier'],
+\  'html': ['prettier'],
 \  'css': ['prettier'],
+\  'scss': ['prettier'],
 \  'php': ['php_cs_fixer'],
 \}
 let g:ale_php_cs_fixer_use_global = 1
