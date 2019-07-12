@@ -48,8 +48,8 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
 " Better editing
+Plugin 'cohama/lexima.vim'
 Plugin 'tpope/vim-commentary'
-Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'terryma/vim-multiple-cursors'
@@ -158,7 +158,6 @@ set foldenable                  " Auto fold code
 if has("gui_running")
 	set list
 	set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
-	set invlist
 endif
 
 " }}}
@@ -261,6 +260,7 @@ endif
 " FZF
 map <leader>g :Files<cr>
 map <leader>t :Tags<cr>
+map <leader>b :Buffers<cr>
 map <leader>f :Rg!<cr>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
