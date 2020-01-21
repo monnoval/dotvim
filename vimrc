@@ -37,6 +37,7 @@ Plugin 'tpope/vim-fugitive'
 
 " Better css, html editing
 Plugin 'JulesWang/css.vim'
+Plugin 'mustache/vim-mustache-handlebars'
 
 " Better markdown
 Plugin 'plasticboy/vim-markdown'
@@ -188,18 +189,17 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Maps Alt-[h,j,k,l] to resizing a window split
-nmap <D-S-left> :vertical resize -5<cr>
-nmap <D-S-down> :resize +5<cr>
-nmap <D-S-up> :resize -5<cr>
-nmap <D-S-right> :vertical resize +5<cr>
+" Maps CMD+S-[h,j,k,l] to resizing a window split
+map <silent> <leader>rl :vertical resize -5<cr>
+map <silent> <leader>rh :vertical resize +5<cr>
+map <silent> <leader>rk :resize +5<cr>
+map <silent> <leader>rj :resize -5<cr>
 
 " Edit vimrc ,ev
-if WINDOWS()
-  nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/_vimrc<CR>
-else
-  nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
-endif
+nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
+
+" Source .vimrc ,sv
+nnoremap <silent> <Leader>sv :source ~/.vimrc<CR>
 
 " Up and down are more logical with g..
 nnoremap <silent> k gk
@@ -321,7 +321,7 @@ let NERDTreeWinPos        = 'left'
 let NERDTreeHijackNetrw   = 0
 let NERDTreeShowBookmarks = 1
 let NERDTreeAutoDeleteBuffer=1
-let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]']
+let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
 " let g:nerdtree_tabs_open_on_gui_startup = 0
 " let g:nerdtree_tabs_autoclose = 0
 
