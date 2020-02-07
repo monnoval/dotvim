@@ -227,8 +227,8 @@ map <leader>cmd :!start cmd /k ""<left>
 " toggle showing of invisible characters
 nmap <leader>l :set invlist<cr>
 
-" toggle showing of invisible characters
-nmap <leader>rt :set noet<cr>:%retab!<cr>
+" using retab causes issues when mixed with tabs/space
+" nmap <leader>rt :set noet<cr>:%retab!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy and Paste using Alt+p
