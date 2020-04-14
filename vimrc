@@ -277,13 +277,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow'
-
 set grepprg=rg\ --vimgrep
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 )
-
 
 " ctrlsf.vim
 nmap <D-F> <Plug>CtrlSFPrompt
@@ -400,7 +394,7 @@ else
   " colorscheme metacosm
 
   if &term == 'xterm' || &term == 'screen'
-    set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+    set t_Co=256 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
   endif
 endif
 
