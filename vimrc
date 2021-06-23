@@ -158,8 +158,8 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 " set foldenable                  " Auto fold code
 
 if has("gui_running")
-	set list
-	set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+  set list
+  set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
 endif
 
 " }}}
@@ -271,6 +271,10 @@ else
   set wildignore+=*/rake/*,*/tmp/*,*/build/*
 endif
 
+" Snipmate depraciation proces
+" https://github.com/garbas/vim-snipmate/commit/f883bac7c493b0078956543f5700c5443dac72c7
+let g:snipMate = { 'snippet_version' : 1 }
+
 " FZF
 map <leader>g :Files<cr>
 map <leader>t :Tags<cr>
@@ -312,9 +316,9 @@ if WINDOWS()
   let g:airline_symbols.space = ' '
 else
   if has("gui_running")
-		let g:airline_powerline_fonts = 1
-		let g:airline#extensions#tabline#enabled = 1
-	endif
+    let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#enabled = 1
+  endif
 endif
 
 " NERDtree
@@ -346,7 +350,7 @@ let g:vim_markdown_frontmatter=1
 
 " vim-gutentags
 if executable('rg')
-	let g:gutentags_file_list_command = 'rg --files'
+  let g:gutentags_file_list_command = 'rg --files'
 endif
 
 " ALE
@@ -382,8 +386,8 @@ noremap <leader>lt :ALEToggle<CR>
 
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
-	colorscheme lucius
-	LuciusDarkLowContrast
+  colorscheme lucius
+  LuciusDarkLowContrast
 
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
@@ -403,7 +407,15 @@ if has('gui_running')
   inoremap <C-t>     <Esc>:tabnew<CR>
 
   if LINUX() && has("gui_running")
-    set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+    vmap <C-x> "+x
+    vmap <C-c> "+y
+    imap <C-v> <Esc>"+gP
+    nnoremap <C-s> :w<CR>
+    nnoremap <C-w> :q<CR>
+  endif
+
+  if LINUX() && has("gui_running")
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
   elseif OSX() && has("gui_running")
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14
   elseif WINDOWS() && has("gui_running")
