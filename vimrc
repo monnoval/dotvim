@@ -49,12 +49,13 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
 " Better editing
-Plugin 'cohama/lexima.vim'
+" Plugin 'cohama/lexima.vim'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'w0rp/ale'
+" Plugin 'w0rp/ale'
 
 " Look and feel
 Plugin 'bling/vim-airline'
@@ -93,7 +94,7 @@ endif
 
 set winaltkeys=no " no alt key in menu
 
-set foldmethod=marker " Folding Stuffs
+" set foldmethod=marker " Folding Stuffs
 
 " Needed for Syntax Highlighting and stuff
 filetype plugin indent on
@@ -154,7 +155,7 @@ set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set foldenable                  " Auto fold code
+" set foldenable                  " Auto fold code
 
 if has("gui_running")
 	set list
@@ -165,6 +166,19 @@ endif
 " Mappings {{{
 
 command E Ex
+
+" command gpm Gpush origin master
+" command gpd Gpush origin master
+fun! SetupCommandAlias(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
+call SetupCommandAlias("gpm", "Gpush origin master")
+call SetupCommandAlias("gpd", "Gpush origin dev")
+call SetupCommandAlias("gs",  "Gstatus")
+call SetupCommandAlias("gc",  "Gcommit")
+call SetupCommandAlias("gl",  "Glog")
 
 let mapleader   = ","
 let g:mapleader = ","
@@ -228,7 +242,7 @@ map <leader>cmd :!start cmd /k ""<left>
 nmap <leader>l :set invlist<cr>
 
 " using retab causes issues when mixed with tabs/space
-" nmap <leader>rt :set noet<cr>:%retab!<cr>
+nmap <leader>rt :set noet<cr>:%retab!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy and Paste using Alt+p
@@ -313,7 +327,7 @@ let NERDTreeWinSize       = 30
 let NERDTreeMouseMode     = 2
 let NERDTreeWinPos        = 'left'
 let NERDTreeHijackNetrw   = 0
-let NERDTreeShowBookmarks = 1
+" let NERDTreeShowBookmarks = 1
 let NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
 " let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -336,19 +350,23 @@ if executable('rg')
 endif
 
 " ALE
-" let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
+
+" Disable all ALE linters for all filetypes by default.
+let g:ale_linters_explicit = 1
+
 let g:ale_linters = {
   \ 'javascript': [] ,
   \ }
 let g:ale_fixers = {
-\  'javascript': ['prettier'],
-\  'typescript': ['prettier', 'eslint', 'tslint'],
-\  'json': ['prettier'],
-\  'markdown': ['prettier'],
-\  'yaml': ['prettier'],
+\  'javascript': ['prettier""'],
+\  'typescript': ['prettier""', 'eslint', 'tslint'],
+\  'json': ['prettier""'],
+\  'markdown': ['prettier""'],
+\  'yaml': ['prettier""'],
 \  'html': ['prettier'],
 \  'css': ['prettier'],
 \  'scss': ['prettier'],
@@ -357,6 +375,7 @@ let g:ale_fixers = {
 let g:ale_php_cs_fixer_use_global = 1
 
 noremap <leader>lf :ALEFix<CR>
+noremap <leader>lt :ALEToggle<CR>
 
 " }}}
 " GUI Settings {{{
@@ -364,7 +383,7 @@ noremap <leader>lf :ALEFix<CR>
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
 	colorscheme lucius
-	LuciusLight
+	LuciusDarkLowContrast
 
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
