@@ -53,9 +53,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
 Plugin 'junegunn/vim-easy-align'
-Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'terryma/vim-multiple-cursors'
-" Plugin 'w0rp/ale'
 
 " Look and feel
 Plugin 'bling/vim-airline'
@@ -168,17 +166,17 @@ endif
 command E Ex
 
 " command gpm Gpush origin master
-" command gpd Gpush origin master
+" command gpd Gpush origin dev
 fun! SetupCommandAlias(from, to)
   exec 'cnoreabbrev <expr> '.a:from
         \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
-call SetupCommandAlias("gpm", "Gpush origin master")
-call SetupCommandAlias("gpd", "Gpush origin dev")
-call SetupCommandAlias("gs",  "Gstatus")
-call SetupCommandAlias("gc",  "Gcommit")
-call SetupCommandAlias("gl",  "Glog")
+call SetupCommandAlias("gpm", "Git push origin master")
+call SetupCommandAlias("gpd", "Git push origin dev")
+call SetupCommandAlias("gs",  "Git")
+call SetupCommandAlias("gc",  "Git commit")
+call SetupCommandAlias("gl",  "Gclog")
 
 let mapleader   = ","
 let g:mapleader = ","
@@ -277,9 +275,9 @@ let g:snipMate = { 'snippet_version' : 1 }
 
 " FZF
 map <leader>g :Files<cr>
-map <leader>t :Tags<cr>
+map <leader>t :Tags <C-R><C-W><cr>
 map <leader>b :Buffers<cr>
-map <leader>f :Rg!<cr>
+map <leader>f :Rg! <C-R><C-W><cr>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -295,6 +293,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow'
+let g:fzf_tags_command = "ctags -R --options=$HOME/.ctags"
 set grepprg=rg\ --vimgrep
 
 " ctrlsf.vim
@@ -348,39 +347,6 @@ nmap ga <Plug>(EasyAlign)
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
 
-" vim-gutentags
-if executable('rg')
-  let g:gutentags_file_list_command = 'rg --files'
-endif
-
-" ALE
-let g:ale_completion_enabled = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_insert_leave = 0
-
-" Disable all ALE linters for all filetypes by default.
-let g:ale_linters_explicit = 1
-
-let g:ale_linters = {
-  \ 'javascript': [] ,
-  \ }
-let g:ale_fixers = {
-\  'javascript': ['prettier""'],
-\  'typescript': ['prettier""', 'eslint', 'tslint'],
-\  'json': ['prettier""'],
-\  'markdown': ['prettier""'],
-\  'yaml': ['prettier""'],
-\  'html': ['prettier'],
-\  'css': ['prettier'],
-\  'scss': ['prettier'],
-\  'php': ['php_cs_fixer'],
-\}
-let g:ale_php_cs_fixer_use_global = 1
-
-noremap <leader>lf :ALEFix<CR>
-noremap <leader>lt :ALEToggle<CR>
-
 " }}}
 " GUI Settings {{{
 
@@ -411,7 +377,8 @@ if has('gui_running')
     vmap <C-c> "+y
     imap <C-v> <Esc>"+gP
     nnoremap <C-s> :w<CR>
-    nnoremap <C-w> :q<CR>
+    nnoremap <C-q> :q<CR>
+    cnoremap <C-v> <C-r>"
   endif
 
   if LINUX() && has("gui_running")
