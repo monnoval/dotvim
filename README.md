@@ -1,12 +1,11 @@
 # Mon's VIM settings
 
-This Vim configuration was intended for both macvim and gvim on windows.
-Currently, as of 2019, this vimrc is only tested on macOS Mojave.
+Currently, as of 2021, this vimrc is only tested on macOS Mojave and KDE neon.
 
 ## Requirements
 
 - rg - https://github.com/BurntSushi/ripgrep
-- ctags -https://formulae.brew.sh/formula/ctags
+- ctags - https://formulae.brew.sh/formula/ctags
 
 ## Features
 
@@ -19,15 +18,12 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 
 ### Plugins
 
-- [vundle](http://github.com/gmarik/Vundle.vim)
-- [ctrlp](http://github.com/kien/ctrlp.vim)
-- [nerdtree](http://github.com/scrooloose/nerdtree)
+- [vim-plug](https://github.com/junegunn/vim-plug)
+- [nerdtree](http://github.com/preservim/nerdtree)
 - [snipmate](http://github.com/garbas/vim-snipmate)
 - [commentary](http://github.com/tpope/vim-commentary)
-- [delimitMate](http://github.com/Raimondi/delimitMate)
 - [airline](http://github.com/bling/vim-airline)
 - [lucius](https://github.com/jonathanfilip/vim-lucius)
-- [ale](https://github.com/w0rp/ale)
 - [fzf](https://github.com/junegunn/fzf.vim)
 - [fugitive](https://github.com/tpope/vim-fugitive)
 
@@ -42,6 +38,7 @@ Currently, as of 2019, this vimrc is only tested on macOS Mojave.
 - `,x` exit current file, eq `:x!`
 - `,q` quit current file, eq `:bd!`
 - `,ev` edit vimrc
+- `,sv` source vimrc
 
 #### Movements
 

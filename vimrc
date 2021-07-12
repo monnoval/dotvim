@@ -1,3 +1,39 @@
+call plug#begin()
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+Plug 'dyng/ctrlsf.vim'
+Plug 'svermeulen/vim-cutlass'
+Plug 'tpope/vim-fugitive'
+
+" Better css, html editing
+Plug 'JulesWang/css.vim'
+Plug 'mustache/vim-mustache-handlebars'
+
+" Better markdown
+Plug 'plasticboy/vim-markdown'
+
+" Snippets
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
+" Better editing
+" Plug 'cohama/lexima.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/vim-easy-align'
+Plug 'terryma/vim-multiple-cursors'
+
+" Look and feel
+Plug 'bling/vim-airline'
+Plug 'jonathanfilip/vim-lucius'
+
+" Initialize plugin system
+call plug#end()
+
 " Environment {{{
 " Identify platform
 silent function! OSX()
@@ -6,61 +42,6 @@ endfunction
 silent function! LINUX()
   return has('unix') && !has('macunix') && !has('win32unix')
 endfunction
-silent function! WINDOWS()
-  return  (has('win16') || has('win32') || has('win64'))
-endfunction
-
-" }}}
-" Vundle {{{
-
-set nocompatible " be iMproved, required
-filetype off     " required
-
-if WINDOWS()
-  set rtp+=~/vimfiles/bundle/Vundle.vim/
-  let path='~/vimfiles/bundle'
-  call vundle#begin(path)
-else
-  set rtp+=~/.vim/bundle/Vundle.vim
-  call vundle#begin()
-endif
-
-Plugin 'gmarik/Vundle.vim'
-
-" Better navigation, search, find, replace
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'dyng/ctrlsf.vim'
-Plugin 'svermeulen/vim-cutlass'
-Plugin 'tpope/vim-fugitive'
-
-" Better css, html editing
-Plugin 'JulesWang/css.vim'
-Plugin 'mustache/vim-mustache-handlebars'
-
-" Better markdown
-Plugin 'plasticboy/vim-markdown'
-
-" Snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-
-" Better editing
-" Plugin 'cohama/lexima.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'tpope/vim-commentary'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'terryma/vim-multiple-cursors'
-
-" Look and feel
-Plugin 'bling/vim-airline'
-Plugin 'jonathanfilip/vim-lucius'
-
-call vundle#end()         " required
-filetype plugin indent on " required
 
 " }}}
 " Auto Commands {{{
@@ -86,10 +67,6 @@ set novisualbell
 set t_vb=
 set tm=500
 set visualbell t_vb=
-if WINDOWS()
-  set novb
-endif
-
 set winaltkeys=no " no alt key in menu
 
 " set foldmethod=marker " Folding Stuffs
@@ -98,6 +75,8 @@ set winaltkeys=no " no alt key in menu
 filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
+colorscheme lucius
+LuciusDarkLowContrast
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
@@ -107,8 +86,8 @@ set noswapfile
 set autoread " Auto load updates
 
 " Using tabs only
-set autoindent  " who doesn't like autoindent?
-set smarttab
+" set autoindent  " who doesn't like autoindent?
+" set smarttab
 set tabstop=2
 set shiftwidth=2
 
@@ -163,7 +142,7 @@ endif
 " }}}
 " Mappings {{{
 
-command E Ex
+" command E Ex
 
 " command gpm Gpush origin master
 " command gpd Gpush origin dev
@@ -202,10 +181,14 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Maps CMD+S-[h,j,k,l] to resizing a window split
-map <silent> <leader>rl :vertical resize -5<cr>
-map <silent> <leader>rh :vertical resize +5<cr>
-map <silent> <leader>rk :resize +5<cr>
-map <silent> <leader>rj :resize -5<cr>
+" map <silent> <leader>rl :vertical resize -5<cr>
+" map <silent> <leader>rh :vertical resize +5<cr>
+" map <silent> <leader>rk :resize +5<cr>
+" map <silent> <leader>rj :resize -5<cr>
+map <silent> <A-S-h> :vertical resize -3<cr>
+map <silent> <A-S-l> :vertical resize +3<cr>
+map <silent> <A-S-j> :resize +3<cr>
+map <silent> <A-S-k> :resize -3<cr>
 
 " Edit vimrc ,ev
 nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
@@ -242,32 +225,14 @@ nmap <leader>l :set invlist<cr>
 " using retab causes issues when mixed with tabs/space
 nmap <leader>rt :set noet<cr>:%retab!<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Copy and Paste using Alt+p
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"copy
-vmap <A-c> "+ygv"zy`>
-"paste (Alt-Shift-p to paste after normal cursor, Ctrl-p to paste over visual selection)
-nmap <A-v> "zgP
-nmap <A-S-v> "zgp
-imap <A-v> <C-r><C-o>z
-vmap <A-v> "zp`]
-cmap <A-v> <C-r><C-o>z
-"copy register
-autocmd FocusGained * let @z=@+
-
 " }}}
 " Plugins {{{
 
 set wildignore+=.svn,.hg,CVS,.git,.cache
 set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*
 set wildignore+=*.min.*
+set wildignore+=*/rake/*,*/tmp/*,*/build/*
 
-if WINDOWS()
-  set wildignore+=*\\rake\\*,*\\tmp\\*,*\\build\\*
-else
-  set wildignore+=*/rake/*,*/tmp/*,*/build/*
-endif
 
 " Snipmate depraciation proces
 " https://github.com/garbas/vim-snipmate/commit/f883bac7c493b0078956543f5700c5443dac72c7
@@ -275,9 +240,9 @@ let g:snipMate = { 'snippet_version' : 1 }
 
 " FZF
 map <leader>g :Files<cr>
-map <leader>t :Tags <C-R><C-W><cr>
 map <leader>b :Buffers<cr>
-map <leader>f :Rg! <C-R><C-W><cr>
+map <leader>t :Tags<cr>
+map <leader>f :Rg!<cr>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -297,8 +262,14 @@ let g:fzf_tags_command = "ctags -R --options=$HOME/.ctags"
 set grepprg=rg\ --vimgrep
 
 " ctrlsf.vim
-nmap <D-F> <Plug>CtrlSFPrompt
-vmap <D-F> <Plug>CtrlSFVwordExec
+if OSX() && has("gui_running")
+  nmap <D-F> <Plug>CtrlSFPrompt
+  vmap <D-F> <Plug>CtrlSFVwordExec
+endif
+if ! has("gui_running") && &term == 'nvim' "nvim-qt
+  vmap <S-F> <Plug>CtrlSFVwordExec
+endif
+
 
 " vim-cutlass
 nnoremap m d
@@ -307,17 +278,9 @@ nnoremap mm dd
 nnoremap M D
 
 " Airline
-if WINDOWS()
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_symbols = {}
-  let g:airline_symbols.space = ' '
-else
-  if has("gui_running")
-    let g:airline_powerline_fonts = 1
-    let g:airline#extensions#tabline#enabled = 1
-  endif
+if has("gui_running") || &term == 'nvim' "nvim-qt
+	let g:airline_powerline_fonts = 1
+	let g:airline#extensions#tabline#enabled = 1
 endif
 
 " NERDtree
@@ -352,16 +315,17 @@ let g:vim_markdown_frontmatter=1
 
 " GVIM- (here instead of .gvimrc)
 if has('gui_running')
-  colorscheme lucius
-  LuciusDarkLowContrast
-
   " Remove Toolbar
   " Disable scrollbars (real hackers don't use scrollbars for navigation!)
   " set guioptions-=r
   " set guioptions-=R
   set guioptions-=l
   set guioptions-=L
-  set guioptions-=T " Remove the toolbar
+
+  if OSX() && has("gui_running")
+    set guioptions-=T " Remove the toolbar
+  endif
+
   set lines=40      " 40 lines of text instead of 24
 
   " tab navigation like firefox
@@ -373,25 +337,37 @@ if has('gui_running')
   inoremap <C-t>     <Esc>:tabnew<CR>
 
   if LINUX() && has("gui_running")
-    vmap <C-x> "+x
-    vmap <C-c> "+y
-    imap <C-v> <Esc>"+gP
+    nnoremap y "+y
+    vnoremap <C-x> "+c
+    vnoremap <C-c> "+y
+    " vnoremap <C-v> c<ESC>"+p
+
+    inoremap <C-v> <ESC>"+pa
+    " inoremap <C-V> <C-O>:set paste<CR><C-R><C-R>+<C-O>:set nopaste<CR>
+
     nnoremap <C-s> :w<CR>
     nnoremap <C-q> :q<CR>
     cnoremap <C-v> <C-r>"
+    set clipboard^=unnamedplus
   endif
 
   if LINUX() && has("gui_running")
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
+    set guifont=Noto\ Mono\ for\ Powerline\ 10
   elseif OSX() && has("gui_running")
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14
-  elseif WINDOWS() && has("gui_running")
-    set guifont=Consolas:h10
   endif
 else
-  " colorscheme metacosm
 
-  if &term == 'xterm' || &term == 'screen'
+  if &term == 'xterm-256color'
+    nnoremap y "+y
+    vnoremap <C-x> "+c
+    vnoremap <C-c> "+y
+    inoremap <C-S-v> <ESC>"+pagg
+    nnoremap <C-s> :w<CR>
+    nnoremap <C-q> :q<CR>
+    cnoremap <C-S-v> <C-r>"
+		set mouse=a
+	elseif &term == 'xterm' || &term == 'screen'
     set t_Co=256 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
   endif
 endif
