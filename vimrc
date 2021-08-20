@@ -6,6 +6,7 @@ Plug 'preservim/nerdtree'
 Plug 'dyng/ctrlsf.vim'
 Plug 'svermeulen/vim-cutlass'
 Plug 'tpope/vim-fugitive'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Better css, html editing
 Plug 'JulesWang/css.vim'
@@ -14,6 +15,7 @@ Plug 'mustache/vim-mustache-handlebars'
 " Better markdown
 Plug 'plasticboy/vim-markdown'
 
+
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -21,7 +23,6 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 " Better editing
-" Plug 'cohama/lexima.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
@@ -227,6 +228,8 @@ nmap <leader>rt :set noet<cr>:%retab!<cr>
 
 " }}}
 " Plugins {{{
+
+let g:gutentags_file_list_command = 'rg --files --follow'
 
 set wildignore+=.svn,.hg,CVS,.git,.cache
 set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*
