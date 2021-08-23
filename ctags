@@ -20,6 +20,7 @@
 # PHP
 # --langmap=php:.engine.module.theme.install.php --PHP-kinds=+cf-v
 
+# CSS, SCSS
 # --langdef=scss
 # --langmap=scss:.sass
 # --langmap=scss:+.scss

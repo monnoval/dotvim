@@ -23,6 +23,10 @@ if exists(':GuiScrollBar')
     GuiScrollBar 1
 endif
 
+" Weird issue regarding copy paste when using Wayland
+" https://github.com/equalsraf/neovim-qt/issues/298#issuecomment-533873100
+" call GuiClipboard()
+
 " Right Click Context Menu (Copy-Cut-Paste)
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
