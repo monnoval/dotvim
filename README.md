@@ -1,31 +1,31 @@
 # Mon's VIM settings
 
-Currently, as of 2021, this vimrc is only tested on macOS Mojave and KDE neon.
+Currently, as of 2021, this vimrc is only tested on KDE neon, Manjaro XFCE and Fedora 34.
 
 ## Requirements
 
-- rg - https://github.com/BurntSushi/ripgrep
-- ctags - https://formulae.brew.sh/formula/ctags
+- [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [ctags](https://docs.ctags.io/en/latest/index.html)
+
+## Installation
+
+```shell
+$ ln -s /custom/dir/dotvim/nvim  ~/.config/nvim
+$ ln -s /custom/dir/dotvim/vimrc ~/.vimrc
+$ ln -s /custom/dir/dotvim/ctags ~/.ctags
+
+# install vim-plug via neovim
+$ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+Open nvim, do :PlugInstall to install plugins.
 
 ## Features
 
 - File browser in left side of screen
 - Easy move between multiple windows and tabs
-
-## Todo
-
-- (none fo now maybe)
-
-### Plugins
-
-- [vim-plug](https://github.com/junegunn/vim-plug)
-- [nerdtree](http://github.com/preservim/nerdtree)
-- [snipmate](http://github.com/garbas/vim-snipmate)
-- [commentary](http://github.com/tpope/vim-commentary)
-- [airline](http://github.com/bling/vim-airline)
-- [lucius](https://github.com/jonathanfilip/vim-lucius)
-- [fzf](https://github.com/junegunn/fzf.vim)
-- [fugitive](https://github.com/tpope/vim-fugitive)
 
 ### Key bindings
 
@@ -45,20 +45,15 @@ Currently, as of 2021, this vimrc is only tested on macOS Mojave and KDE neon.
 - `,s` split window horizontally, eq `:split`
 - `,v` split window vertically, eq `:vplit`
 - `,e` split window vertically then open netrw, eq `:vsplit<cr><C-W>l:E`
+- `ctrl+alt-h` or `ctrl+alt-l` resize horizontally
+- `ctrl+alt-j` or `ctrl+alt-k` resize vertically
 - `ctrl+j` move down
 - `ctrl+k` move up
 - `ctrl+h` move left
 - `ctrl+l` move right
 
-#### Fixes
-
-- `,m` remove all ^M - when the encodings gets messed up
-- `alt+c` copy in windows env
-- `alt+v` paste in windows env
-
 #### Plugins
 
-- `,g` use ctrlp to search files
-- `,f` find string in all files using easygrep
+- `,g` to search files
+- `,f` find string in all files
 - `,n` open file browser, using nerdtree
-
