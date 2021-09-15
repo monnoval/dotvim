@@ -231,9 +231,8 @@ nmap <leader>rt :set noet<cr>:%retab!<cr>
 
 let g:gutentags_file_list_command = 'rg --files --follow'
 
-set wildignore+=.svn,.hg,CVS,.git,.cache
-set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*
-set wildignore+=*.min.*
+set wildignore+=.svn,.hg,CVS,.git,.cache,.sass-cache,tags
+set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.gif,*.log,*.lock,*.min.*,*.map,tags.*
 set wildignore+=*/rake/*,*/tmp/*,*/build/*
 
 
@@ -298,7 +297,8 @@ let NERDTreeWinPos        = 'left'
 let NERDTreeHijackNetrw   = 0
 " let NERDTreeShowBookmarks = 1
 let NERDTreeAutoDeleteBuffer=1
-let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
+let NERDTreeRespectWildIgnore=1
+let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','\.map','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
 " let g:nerdtree_tabs_open_on_gui_startup = 0
 " let g:nerdtree_tabs_autoclose = 0
 
