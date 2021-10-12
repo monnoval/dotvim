@@ -61,6 +61,8 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 " }}}
 " Misc {{{
+"
+set maxmempattern=500000
 
 " No annoying sound on errors
 set noerrorbells
@@ -69,8 +71,6 @@ set t_vb=
 set tm=500
 set visualbell t_vb=
 set winaltkeys=no " no alt key in menu
-
-" set foldmethod=marker " Folding Stuffs
 
 " Needed for Syntax Highlighting and stuff
 filetype plugin indent on
