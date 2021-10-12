@@ -35,4 +35,5 @@ view/*
 bundle/*
 Trashed-Bundles/*
 tags
+tags*
 nvim/plugged/**/*

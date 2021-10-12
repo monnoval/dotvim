@@ -41,5 +41,17 @@ nnoremap <C-q> :q<CR>
 inoremap <C-v> <C-R><C-O>+
 cnoremap <C-v> <C-R><C-O>+
 
-"Enable CTRL-V in terminal mode
+" Disable middle mouse click paste feature
+" https://superuser.com/a/242822
+nnoremap <MiddleMouse> <Nop>
+nnoremap <2-MiddleMouse> <Nop>
+nnoremap <3-MiddleMouse> <Nop>
+nnoremap <4-MiddleMouse> <Nop>
+inoremap <MiddleMouse> <Nop>
+inoremap <2-MiddleMouse> <Nop>
+inoremap <3-MiddleMouse> <Nop>
+inoremap <4-MiddleMouse> <Nop>
+
+" Enable CTRL-V in terminal mode
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+
