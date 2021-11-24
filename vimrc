@@ -15,7 +15,6 @@ Plug 'mustache/vim-mustache-handlebars'
 " Better markdown
 Plug 'plasticboy/vim-markdown'
 
-
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -27,6 +26,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
+
+" todo.txt
+Plug 'dbeniamine/todo.txt-vim'
 
 " Look and feel
 Plug 'bling/vim-airline'
@@ -133,7 +135,7 @@ set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-" set foldenable                  " Auto fold code
+set foldenable                  " Auto fold code
 
 if has("gui_running")
   set list
@@ -312,6 +314,11 @@ nmap ga <Plug>(EasyAlign)
 " Vim Markdown
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
+
+" todo-txt
+let maplocalleader="\\"
+let $TODO_DIR = printf('%s/Sync/shared/todo', $HOME)
+au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
 
 " }}}
 " GUI Settings {{{
