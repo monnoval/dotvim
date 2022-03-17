@@ -31,7 +31,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'dbeniamine/todo.txt-vim'
 
 " Look and feel
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
 
 " Initialize plugin system
@@ -286,6 +287,7 @@ nnoremap M D
 if has("gui_running") || &term == 'nvim' "nvim-qt
 	let g:airline_powerline_fonts = 1
 	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_theme='dark'
 endif
 
 " NERDtree
