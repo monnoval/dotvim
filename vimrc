@@ -34,6 +34,7 @@ Plug 'dbeniamine/todo.txt-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Initialize plugin system
 call plug#end()
@@ -81,6 +82,9 @@ syntax on
 set grepprg=grep\ -nH\ $*
 colorscheme lucius
 LuciusDarkLowContrast
+
+" Setup for nvim-colorizer
+lua require'colorizer'.setup({'*';css={rgb_fn=true;};scss={rgb_fn=true;};html={names=false;}})
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
