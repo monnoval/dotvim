@@ -8,6 +8,13 @@ if exists(':GuiFont')
     GuiFont! Noto\ Mono\ for\ Powerline:h10
 endif
 
+silent function! OSX()
+  return has('macunix')
+endfunction
+if OSX() && exists(':GuiFont')
+    GuiFont! Noto\ Mono\ for\ Powerline:h14
+endif
+
 " Disable GUI Tabline
 if exists(':GuiTabline')
     GuiTabline 0
