@@ -3,7 +3,7 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
-Plug 'dyng/ctrlsf.vim'
+Plug 'dyng/ctrlsf.vim', {'commit': '99fe0e1bafbe17a9af5ddbc0782fdcc7c990c5b0'}
 Plug 'svermeulen/vim-cutlass'
 Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
