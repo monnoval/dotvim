@@ -35,6 +35,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
 
+" Calendar
+Plug 'itchyny/calendar.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -336,6 +339,13 @@ let g:vim_markdown_frontmatter=1
 let maplocalleader="\\"
 let $TODO_DIR = printf('%s/Sync/shared/todo', $HOME)
 au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
+
+" Calendar
+let g:calendar_first_day = "sunday"
+nnoremap <silent> <Leader>cy :Calendar -view=year<CR>
+nnoremap <silent> <Leader>cv :Calendar -view=year -split=vertical -width=27<CR>
+nnoremap <silent> <Leader>ch :Calendar -view=year -split=horizontal -position=below -height=12<CR>
+nnoremap <silent> <Leader>cw :Calendar -view=week -split=horizontal -position=below -height=12<CR>
 
 " }}}
 " GUI Settings {{{
