@@ -26,6 +26,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'szw/vim-maximizer'
 
 " todo.txt
 Plug 'dbeniamine/todo.txt-vim'
