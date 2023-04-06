@@ -303,9 +303,9 @@ nnoremap M D
 
 " Airline
 if has("gui_running") || &term == 'nvim' "nvim-qt
-	let g:airline_powerline_fonts = 1
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline_theme='dark'
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_theme='dark'
 endif
 
 " NERDtree
@@ -396,18 +396,11 @@ if has('gui_running')
   endif
 else
 
-  if &term == 'xterm-256color'
-    nnoremap y "+y
-    vnoremap <C-x> "+c
-    vnoremap <C-c> "+y
-    inoremap <C-S-v> <ESC>"+pagg
-    nnoremap <C-s> :w<CR>
-    nnoremap <C-q> :q<CR>
-    cnoremap <C-S-v> <C-r>"
-		set mouse=a
-	elseif &term == 'xterm' || &term == 'screen'
-    set t_Co=256 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-  endif
-endif
+	set clipboard=unnamedplus
+	autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
+	vnoremap <C-c> "+y
+	nnoremap <C-s> :w<CR>
+	nnoremap <C-q> :q<CR>
 
+endif
 " }}}
