@@ -375,14 +375,9 @@ if has('gui_running')
   inoremap <C-t>     <Esc>:tabnew<CR>
 
   if LINUX() && has("gui_running")
-    nnoremap y "+y
     vnoremap <C-x> "+c
     vnoremap <C-c> "+y
-    " vnoremap <C-v> c<ESC>"+p
-
     inoremap <C-v> <ESC>"+pa
-    " inoremap <C-V> <C-O>:set paste<CR><C-R><C-R>+<C-O>:set nopaste<CR>
-
     nnoremap <C-s> :w<CR>
     nnoremap <C-q> :q<CR>
     cnoremap <C-v> <C-r>"
