@@ -3,7 +3,7 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
-Plug 'dyng/ctrlsf.vim', {'commit': '99fe0e1bafbe17a9af5ddbc0782fdcc7c990c5b0'}
+Plug 'dyng/ctrlsf.vim'
 Plug 'svermeulen/vim-cutlass'
 Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
@@ -242,6 +242,7 @@ map <silent> <leader><cr> :noh<cr>
 map <leader>cmd :!start cmd /k ""<left>
 
 " toggle showing of invisible characters
+set invlist
 nmap <leader>l :set invlist<cr>
 
 " using retab causes issues when mixed with tabs/space
@@ -290,9 +291,7 @@ if OSX() && has("gui_running")
   nmap <D-F> <Plug>CtrlSFPrompt
   vmap <D-F> <Plug>CtrlSFVwordExec
 endif
-if ! has("gui_running") && &term == 'nvim' "nvim-qt
-  vmap <S-F> <Plug>CtrlSFVwordExec
-endif
+vmap <S-F> <Plug>CtrlSFVwordExec
 
 
 " vim-cutlass
