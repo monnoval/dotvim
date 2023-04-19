@@ -35,6 +35,7 @@ Plug 'dbeniamine/todo.txt-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 " Calendar
 Plug 'itchyny/calendar.vim'
@@ -83,8 +84,10 @@ set winaltkeys=no " no alt key in menu
 filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
-colorscheme lucius
-LuciusDarkLowContrast
+" colorscheme lucius
+" LuciusDarkLowContrast
+set termguicolors
+colorscheme catppuccin_macchiato
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
@@ -304,8 +307,9 @@ nnoremap M D
 if has("gui_running") || &term == 'nvim' "nvim-qt
   let g:airline_powerline_fonts = 1
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline_theme='dark'
+  " let g:airline_theme='dark'
 endif
+let g:airline_theme='catppuccin_macchiato'
 
 " NERDtree
 nmap <silent> <leader>n :call g:WorkaroundNERDTreeToggle()<CR>
