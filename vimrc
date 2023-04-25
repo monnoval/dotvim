@@ -345,7 +345,9 @@ let $TODO_DIR = printf('%s/Sync/shared/todo', $HOME)
 au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
 
 " Calendar
+let g:calendar_clock_12hour=1
 let g:calendar_first_day = "sunday"
+let g:calendar_cache_directory = printf('%s/Sync/shared/todo/calendar.vim/', $HOME)
 nnoremap <silent> <Leader>c :Calendar<CR>
 nnoremap <silent> <Leader>cv :Calendar -view=year -split=vertical -width=27<CR>
 nnoremap <silent> <Leader>ch :Calendar -view=year -split=horizontal -position=below -height=12<CR>
