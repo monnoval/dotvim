@@ -17,7 +17,7 @@ $ ln -s /custom/dir/dotvim/ctags ~/.ctags
 
 # install vim-plug via neovim
 $ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
 Open nvim, do :PlugInstall to install plugins.
@@ -45,8 +45,8 @@ Open nvim, do :PlugInstall to install plugins.
 - `,s` split window horizontally, eq `:split`
 - `,v` split window vertically, eq `:vplit`
 - `,e` split window vertically then open netrw, eq `:vsplit<cr><C-W>l:E`
-- `ctrl+alt-h` or `ctrl+alt-l` resize horizontally
-- `ctrl+alt-j` or `ctrl+alt-k` resize vertically
+- `alt+shift-h` or `alt+shift-l` resize horizontally
+- `alt+shift-j` or `alt+shift-k` resize vertically
 - `ctrl+j` move down
 - `ctrl+k` move up
 - `ctrl+h` move left
@@ -56,4 +56,4 @@ Open nvim, do :PlugInstall to install plugins.
 
 - `,g` to search files
 - `,f` find string in all files
-- `,n` open file browser, using nerdtree
+- `,n` open using nerdtree (file browser)

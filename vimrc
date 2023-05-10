@@ -34,7 +34,6 @@ Plug 'dbeniamine/todo.txt-vim'
 " Look and feel
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jonathanfilip/vim-lucius'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 " Calendar
@@ -84,8 +83,6 @@ set winaltkeys=no " no alt key in menu
 filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
-" colorscheme lucius
-" LuciusDarkLowContrast
 set termguicolors
 colorscheme catppuccin_macchiato
 
@@ -111,8 +108,6 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " Using tabs only
-" set autoindent  " who doesn't like autoindent?
-" set smarttab
 set tabstop=2
 set shiftwidth=2
 
@@ -167,8 +162,6 @@ endif
 " }}}
 " Mappings {{{
 
-" command E Ex
-
 " command gpm Gpush origin master
 " command gpd Gpush origin dev
 fun! SetupCommandAlias(from, to)
@@ -206,10 +199,6 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Maps CMD+S-[h,j,k,l] to resizing a window split
-" map <silent> <leader>rl :vertical resize -5<cr>
-" map <silent> <leader>rh :vertical resize +5<cr>
-" map <silent> <leader>rk :resize +5<cr>
-" map <silent> <leader>rj :resize -5<cr>
 map <silent> <A-S-h> :vertical resize -3<cr>
 map <silent> <A-S-l> :vertical resize +3<cr>
 map <silent> <A-S-j> :resize +3<cr>
@@ -348,10 +337,14 @@ au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
 let g:calendar_clock_12hour=1
 let g:calendar_first_day = "sunday"
 let g:calendar_cache_directory = printf('%s/Sync/shared/todo/calendar.vim/', $HOME)
+let g:calendar_date_full_month_name=1
 nnoremap <silent> <Leader>c :Calendar<CR>
 nnoremap <silent> <Leader>cv :Calendar -view=year -split=vertical -width=27<CR>
 nnoremap <silent> <Leader>ch :Calendar -view=year -split=horizontal -position=below -height=12<CR>
 nnoremap <silent> <Leader>cw :Calendar -view=week -split=horizontal -position=below -height=12<CR>
+
+" vim-commentary
+autocmd FileType php setlocal commentstring=//\ %s
 
 " }}}
 " GUI Settings {{{
