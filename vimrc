@@ -35,6 +35,7 @@ Plug 'dbeniamine/todo.txt-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Calendar
 Plug 'itchyny/calendar.vim'
@@ -84,7 +85,8 @@ filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
 set termguicolors
-colorscheme catppuccin_macchiato
+" colorscheme catppuccin_macchiato
+colorscheme dracula
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
@@ -234,7 +236,7 @@ map <silent> <leader><cr> :noh<cr>
 map <leader>cmd :!start cmd /k ""<left>
 
 " toggle showing of invisible characters
-set invlist
+" set invlist
 nmap <leader>l :set invlist<cr>
 
 " using retab causes issues when mixed with tabs/space
@@ -298,7 +300,8 @@ if has("gui_running") || &term == 'nvim' "nvim-qt
   let g:airline#extensions#tabline#enabled = 1
   " let g:airline_theme='dark'
 endif
-let g:airline_theme='catppuccin_macchiato'
+" let g:airline_theme='catppuccin_macchiato'
+let g:airline_theme='dracula'
 
 " NERDtree
 nmap <silent> <leader>n :call g:WorkaroundNERDTreeToggle()<CR>
