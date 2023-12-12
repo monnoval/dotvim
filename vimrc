@@ -36,6 +36,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 
 " Calendar
@@ -86,10 +87,10 @@ filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
 set termguicolors
-" colorscheme catppuccin_macchiato
-" colorscheme dracula
-let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
+
+" different colorscheme for todo
+autocmd FileType todo colorscheme minimalist
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
