@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dyng/ctrlsf.vim'
 Plug 'svermeulen/vim-cutlass'
 Plug 'tpope/vim-fugitive'
@@ -240,7 +241,7 @@ map <silent> <leader><cr> :noh<cr>
 map <leader>cmd :!start cmd /k ""<left>
 
 " toggle showing of invisible characters
-set invlist
+" set invlist
 nmap <leader>l :set invlist<cr>
 
 " using retab causes issues when mixed with tabs/space
@@ -314,14 +315,14 @@ function! g:WorkaroundNERDTreeToggle()
   try | :NERDTreeToggle | catch | :NERDTree | endtry
 endfunction
 " map <silent> <leader>n :NERDTreeTabsToggle<CR>
-let NERDTreeWinSize       = 30
-let NERDTreeMouseMode     = 2
-let NERDTreeWinPos        = 'left'
-let NERDTreeHijackNetrw   = 0
-" let NERDTreeShowBookmarks = 1
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeRespectWildIgnore=1
+let NERDTreeWinSize           = 30
+let NERDTreeMouseMode         = 2
+let NERDTreeWinPos            = 'left'
+let NERDTreeHijackNetrw       = 0
+let NERDTreeAutoDeleteBuffer  = 1
+let NERDTreeRespectWildIgnore = 1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.jpeg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','\.map','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
+let NERDTreeMapToggleFileLines=',l'
 " let g:nerdtree_tabs_open_on_gui_startup = 0
 " let g:nerdtree_tabs_autoclose = 0
 
