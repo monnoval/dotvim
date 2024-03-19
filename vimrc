@@ -5,7 +5,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dyng/ctrlsf.vim'
-Plug 'svermeulen/vim-cutlass'
 Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-vinegar'
@@ -27,8 +26,10 @@ Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'szw/vim-maximizer'
+Plug 'svermeulen/vim-cutlass'
+Plug 'svermeulen/vim-yoink'
 
 " todo.txt
 Plug 'dbeniamine/todo.txt-vim'
@@ -36,8 +37,6 @@ Plug 'dbeniamine/todo.txt-vim'
 " Look and feel
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 
@@ -251,12 +250,19 @@ nmap <leader>rt :set noet<cr>:%retab!<cr>
 " }}}
 " Plugins {{{
 
+" Auto Pairs
+let g:AutoPairsFlyMode = 1 " Enable fly mode
+let g:yoinkIncludeDeleteOperations = 1
+
+" Yoink
+nmap <expr> p yoink#canSwap() ? '<plug>(YoinkPostPasteSwapBack)' : '<plug>(YoinkPaste_p)'
+nmap <expr> P yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : '<plug>(YoinkPaste_P)'
+
 let g:gutentags_file_list_command = 'rg --files --follow'
 
 set wildignore+=.svn,.hg,CVS,.git,.cache,.sass-cache,tags
 set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.jpeg,*.gif,*.log,*.lock,*.min.*,*.map,tags.*
 set wildignore+=*/rake/*,*/tmp/*,*/build/*
-
 
 " Snipmate depraciation proces
 " https://github.com/garbas/vim-snipmate/commit/f883bac7c493b0078956543f5700c5443dac72c7
