@@ -8,6 +8,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'svermeulen/vim-cutlass'
 Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-vinegar'
 
 " Better css, html editing
 Plug 'JulesWang/css.vim'
@@ -303,10 +304,7 @@ nnoremap M D
 if has("gui_running") || &term == 'nvim' "nvim-qt
   let g:airline_powerline_fonts = 1
   let g:airline#extensions#tabline#enabled = 1
-  " let g:airline_theme='dark'
 endif
-" let g:airline_theme='catppuccin_macchiato'
-" let g:airline_theme='dracula'
 let g:airline_theme='gruvbox'
 
 " NERDtree
@@ -314,17 +312,17 @@ nmap <silent> <leader>n :call g:WorkaroundNERDTreeToggle()<CR>
 function! g:WorkaroundNERDTreeToggle()
   try | :NERDTreeToggle | catch | :NERDTree | endtry
 endfunction
-" map <silent> <leader>n :NERDTreeTabsToggle<CR>
 let NERDTreeWinSize           = 30
 let NERDTreeMouseMode         = 2
 let NERDTreeWinPos            = 'left'
 let NERDTreeHijackNetrw       = 0
 let NERDTreeAutoDeleteBuffer  = 1
 let NERDTreeRespectWildIgnore = 1
+let NERDTreeLazyDirRefresh    = 1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.jpeg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','\.map','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
 let NERDTreeMapToggleFileLines=',l'
-" let g:nerdtree_tabs_open_on_gui_startup = 0
-" let g:nerdtree_tabs_autoclose = 0
+" Auto open NERDTree https://stackoverflow.com/a/7640505/261365
+autocmd VimEnter * NERDTree
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
