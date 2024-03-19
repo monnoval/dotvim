@@ -321,8 +321,6 @@ let NERDTreeRespectWildIgnore = 1
 let NERDTreeLazyDirRefresh    = 1
 let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.jpeg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','\.map','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
 let NERDTreeMapToggleFileLines=',l'
-" Auto open NERDTree https://stackoverflow.com/a/7640505/261365
-autocmd VimEnter * NERDTree
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
