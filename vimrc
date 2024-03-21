@@ -250,11 +250,9 @@ nmap <leader>rt :set noet<cr>:%retab!<cr>
 " }}}
 " Plugins {{{
 
-" Auto Pairs
-let g:AutoPairsFlyMode = 1 " Enable fly mode
-let g:yoinkIncludeDeleteOperations = 1
-
 " Yoink
+let g:yoinkIncludeDeleteOperations = 1
+let g:yoinkSyncSystemClipboardOnFocus = 0
 nmap <expr> p yoink#canSwap() ? '<plug>(YoinkPostPasteSwapBack)' : '<plug>(YoinkPaste_p)'
 nmap <expr> P yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : '<plug>(YoinkPaste_P)'
 
