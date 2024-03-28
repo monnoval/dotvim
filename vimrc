@@ -5,9 +5,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dyng/ctrlsf.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
+
+" Better vim
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
 " Better css, html editing
 Plug 'JulesWang/css.vim'
@@ -24,7 +28,6 @@ Plug 'honza/vim-snippets'
 
 " Better editing
 Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'szw/vim-maximizer'
