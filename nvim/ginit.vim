@@ -2,6 +2,16 @@
 set mouse=a
 set clipboard=unnamed
 
+if exists('g:GuiLoaded')
+    set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+    nnoremap <C-S-tab> :tabprevious<CR>
+    nnoremap <C-tab>   :tabnext<CR>
+    nnoremap <C-t>     :tabnew<CR>
+    inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+    inoremap <C-tab>   <Esc>:tabnext<CR>i
+    inoremap <C-t>     <Esc>:tabnew<CR>
+endif
+
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors

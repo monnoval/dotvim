@@ -1,9 +1,9 @@
 call plug#begin()
 
+" Plug 'dstein64/vim-startuptime'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dyng/ctrlsf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -38,8 +38,7 @@ Plug 'svermeulen/vim-yoink'
 Plug 'dbeniamine/todo.txt-vim'
 
 " Look and feel
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 
@@ -92,9 +91,6 @@ syntax on
 set grepprg=grep\ -nH\ $*
 set termguicolors
 colorscheme gruvbox
-
-" different colorscheme for todo
-autocmd FileType todo colorscheme minimalist
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
@@ -164,10 +160,9 @@ set wildmode=list:longest,full  " Command <Tab> completion, list matches, then l
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set foldenable                  " Auto fold code
 
-if has("gui_running")
-  set list
-  set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
-endif
+" if has("gui_running")
+"   set listchars=tab:›\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+" endif
 
 " }}}
 " Mappings {{{
@@ -244,7 +239,6 @@ map <silent> <leader><cr> :noh<cr>
 map <leader>cmd :!start cmd /k ""<left>
 
 " toggle showing of invisible characters
-" set invlist
 nmap <leader>l :set invlist<cr>
 
 " using retab causes issues when mixed with tabs/space
@@ -258,6 +252,11 @@ let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkSyncSystemClipboardOnFocus = 0
 nmap <expr> p yoink#canSwap() ? '<plug>(YoinkPostPasteSwapBack)' : '<plug>(YoinkPaste_p)'
 nmap <expr> P yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : '<plug>(YoinkPaste_P)'
+
+" minimap.vim
+" let g:minimap_width = 10
+" let g:minimap_auto_start = 1
+" let g:minimap_auto_start_win_enter = 1
 
 let g:gutentags_file_list_command = 'rg --files --follow'
 
@@ -294,10 +293,6 @@ let g:fzf_tags_command = "ctags -R --options=$HOME/.ctags"
 set grepprg=rg\ --vimgrep
 
 " ctrlsf.vim
-if OSX() && has("gui_running")
-  nmap <D-F> <Plug>CtrlSFPrompt
-  vmap <D-F> <Plug>CtrlSFVwordExec
-endif
 vmap <S-F> <Plug>CtrlSFVwordExec
 
 
@@ -307,12 +302,8 @@ xnoremap m d
 nnoremap mm dd
 nnoremap M D
 
-" Airline
-if has("gui_running") || &term == 'nvim' "nvim-qt
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#enabled = 1
-endif
-let g:airline_theme='gruvbox'
+" Lightline
+let g:lightline = {'colorscheme':'gruvbox'}
 
 " NERDtree
 nmap <silent> <leader>n :call g:WorkaroundNERDTreeToggle()<CR>
@@ -344,6 +335,9 @@ let g:vim_markdown_frontmatter=1
 let maplocalleader="\\"
 let $TODO_DIR = printf('%s/Sync/shared/todo', $HOME)
 au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
+" different colorscheme for todo
+autocmd FileType todo colorscheme minimalist
+autocmd FileType todo let g:lightline = {'colorscheme':'wombat'}
 
 " Calendar
 let g:calendar_clock_12hour=1
@@ -360,52 +354,12 @@ autocmd FileType php setlocal commentstring=//\ %s
 
 " }}}
 " GUI Settings {{{
+" Misc
 
-" GVIM- (here instead of .gvimrc)
-if has('gui_running')
-  " Remove Toolbar
-  " Disable scrollbars (real hackers don't use scrollbars for navigation!)
-  " set guioptions-=r
-  " set guioptions-=R
-  set guioptions-=l
-  set guioptions-=L
+set clipboard=unnamedplus
+autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
+vnoremap <C-c> "+y
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :q<CR>
 
-  if OSX() && has("gui_running")
-    set guioptions-=T " Remove the toolbar
-  endif
-
-  set lines=40      " 40 lines of text instead of 24
-
-  " tab navigation like firefox
-  nnoremap <C-S-tab> :tabprevious<CR>
-  nnoremap <C-tab>   :tabnext<CR>
-  nnoremap <C-t>     :tabnew<CR>
-  inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-  inoremap <C-tab>   <Esc>:tabnext<CR>i
-  inoremap <C-t>     <Esc>:tabnew<CR>
-
-  if LINUX() && has("gui_running")
-    vnoremap <C-x> "+c
-    vnoremap <C-c> "+y
-    inoremap <C-v> <ESC>"+pa
-    nnoremap <C-s> :w<CR>
-    nnoremap <C-q> :q<CR>
-    cnoremap <C-v> <C-r>"
-    set clipboard^=unnamedplus
-  endif
-
-  if LINUX() && has("gui_running")
-    set guifont=Noto\ Mono\ for\ Powerline\ 10
-  elseif OSX() && has("gui_running")
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
-  endif
-else
-
-	set clipboard=unnamedplus
-	autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
-	vnoremap <C-c> "+y
-	nnoremap <C-s> :w<CR>
-	nnoremap <C-q> :q<CR>
-
-endif
 " }}}
