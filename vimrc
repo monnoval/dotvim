@@ -269,9 +269,9 @@ set wildignore+=*/rake/*,*/tmp/*,*/build/*
 let g:snipMate = { 'snippet_version' : 1 }
 
 " FZF
-map <leader>g :Files<cr>
-map <leader>b :Buffers<cr>
-map <leader>t :Tags<cr>
+map <leader>g :Files!<cr>
+map <leader>b :Buffers!<cr>
+map <leader>t :Tags!<cr>
 map <leader>f :Rg!<cr>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -291,6 +291,9 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --follow'
 let $FZF_DEFAULT_OPTS = '--tabstop=2'
 let g:fzf_tags_command = "ctags -R --options=$HOME/.ctags"
 set grepprg=rg\ --vimgrep
+" Fix tabstop when using Buffers
+command! -bang -nargs=? Buffers
+    \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview({'options': ['--tabstop=2']}), <bang>0)
 
 " ctrlsf.vim
 vmap <S-F> <Plug>CtrlSFVwordExec
