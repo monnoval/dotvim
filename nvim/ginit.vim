@@ -15,7 +15,9 @@ endif
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont! Noto\ Mono\ for\ Powerline:h10
+    " GuiFont! NotoMono Nerd Font:h10
+    GuiFont! FiraCode Nerd Font:h11
+    GuiRenderLigatures 1
 endif
 
 silent function! OSX()
