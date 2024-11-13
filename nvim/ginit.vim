@@ -16,8 +16,7 @@ endif
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
     " GuiFont! NotoMono Nerd Font:h10
-    GuiFont! FiraCode Nerd Font:h11
-    GuiRenderLigatures 1
+    GuiFont! Fira Code:h11
 endif
 
 silent function! OSX()
