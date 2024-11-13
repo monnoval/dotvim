@@ -15,7 +15,6 @@ endif
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    " GuiFont! NotoMono Nerd Font:h10
     GuiFont! Fira Code:h11
 endif
 
