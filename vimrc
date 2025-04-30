@@ -248,8 +248,9 @@ nmap <leader>rt :set noet<cr>:%retab!<cr>
 " Plugins {{{
 
 " Yoink
+set clipboard^=unnamed
 let g:yoinkIncludeDeleteOperations = 1
-let g:yoinkSyncSystemClipboardOnFocus = 0
+" let g:yoinkSyncSystemClipboardOnFocus = 0
 nmap <expr> p yoink#canSwap() ? '<plug>(YoinkPostPasteSwapBack)' : '<plug>(YoinkPaste_p)'
 nmap <expr> P yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : '<plug>(YoinkPaste_P)'
 
@@ -359,7 +360,6 @@ autocmd FileType php setlocal commentstring=//\ %s
 " GUI Settings {{{
 " Misc
 
-set clipboard=unnamedplus
 autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
 vnoremap <C-c> "+y
 nnoremap <C-s> :w<CR>
