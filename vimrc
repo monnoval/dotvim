@@ -89,8 +89,11 @@ set winaltkeys=no " no alt key in menu
 filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+endif
 set background=dark
+let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
 
 " Cool tab completion stuff
@@ -332,8 +335,8 @@ let maplocalleader="\\"
 let $TODO_DIR = printf('%s/Sync/shared/todo', $HOME)
 au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
 " different colorscheme for todo
-autocmd FileType todo colorscheme minimalist
-autocmd FileType todo let g:lightline = {'colorscheme':'one'}
+autocmd FileType todo let g:gruvbox_material_background = 'hard'
+autocmd FileType todo colorscheme gruvbox-material
 
 " Calendar
 let g:calendar_clock_12hour=1
