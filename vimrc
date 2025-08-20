@@ -23,7 +23,7 @@ Plug 'plasticboy/vim-markdown'
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
+Plug 'dcampos/nvim-snippy'
 Plug 'honza/vim-snippets'
 
 " Better editing
@@ -40,7 +40,7 @@ Plug 'dbeniamine/todo.txt-vim'
 " Look and feel
 Plug 'itchyny/lightline.vim'
 Plug 'dikiaap/minimalist'
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 
 " Calendar
 Plug 'itchyny/calendar.vim'
@@ -90,7 +90,8 @@ filetype plugin indent on
 syntax on
 set grepprg=grep\ -nH\ $*
 set termguicolors
-colorscheme gruvbox
+set background=dark
+colorscheme gruvbox-material
 
 " Cool tab completion stuff
 set nohidden " when I close a tab, remove the buffer
@@ -130,18 +131,6 @@ if has('cmdline_info')
   set ruler                   " Show the ruler
   set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
   set showcmd                 " Show partial commands in status line and
-endif
-
-if has('statusline')
-  set laststatus=2
-
-  " Broken down into easily includeable segments
-  set statusline=%<%f\                     " Filename
-  set statusline+=%w%h%m%r                 " Options
-" set statusline+=%{fugitive#statusline()} " Git Hotness
-  set statusline+=\ [%{&ff}/%Y]            " Filetype
-  set statusline+=\ [%{getcwd()}]          " Current dir
-  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 
 " set off the other paren
@@ -265,9 +254,12 @@ set wildignore+=.svn,.hg,CVS,.git,.cache,.sass-cache,tags
 set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.jpeg,*.gif,*.log,*.lock,*.min.*,*.map,tags.*
 set wildignore+=*/rake/*,*/tmp/*,*/build/*
 
-" Snipmate depraciation proces
-" https://github.com/garbas/vim-snipmate/commit/f883bac7c493b0078956543f5700c5443dac72c7
-let g:snipMate = { 'snippet_version' : 1 }
+" snippy
+imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
+imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
+smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+xmap <Tab> <Plug>(snippy-cut-text)
 
 " FZF
 map <leader>g :Files!<cr>
@@ -307,7 +299,7 @@ nnoremap mm dd
 nnoremap M D
 
 " Lightline
-let g:lightline = {'colorscheme':'gruvbox'}
+let g:lightline = {'colorscheme':'gruvbox_material'}
 
 " NERDtree
 nmap <silent> <leader>n :call g:WorkaroundNERDTreeToggle()<CR>
@@ -341,7 +333,7 @@ let $TODO_DIR = printf('%s/Sync/shared/todo', $HOME)
 au BufNewFile,BufRead $TODO_DIR/*.txt set filetype=todo
 " different colorscheme for todo
 autocmd FileType todo colorscheme minimalist
-autocmd FileType todo let g:lightline = {'colorscheme':'wombat'}
+autocmd FileType todo let g:lightline = {'colorscheme':'one'}
 
 " Calendar
 let g:calendar_clock_12hour=1
