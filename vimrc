@@ -246,13 +246,10 @@ let g:yoinkIncludeDeleteOperations = 1
 nmap <expr> p yoink#canSwap() ? '<plug>(YoinkPostPasteSwapBack)' : '<plug>(YoinkPaste_p)'
 nmap <expr> P yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : '<plug>(YoinkPaste_P)'
 
-" minimap.vim
-" let g:minimap_width = 10
-" let g:minimap_auto_start = 1
-" let g:minimap_auto_start_win_enter = 1
-
+" gutentags
 let g:gutentags_file_list_command = 'rg --files --follow'
 
+" Ignores
 set wildignore+=.svn,.hg,CVS,.git,.cache,.sass-cache,tags
 set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.jpeg,*.gif,*.log,*.lock,*.min.*,*.map,tags.*
 set wildignore+=*/rake/*,*/tmp/*,*/build/*
@@ -293,7 +290,6 @@ command! -bang -nargs=? Buffers
 
 " ctrlsf.vim
 vmap <S-F> <Plug>CtrlSFVwordExec
-
 
 " vim-cutlass
 nnoremap m d
