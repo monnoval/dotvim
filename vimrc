@@ -356,4 +356,11 @@ vnoremap <C-c> "+y
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q<CR>
 
+" Neovide
+if exists("g:neovide")
+	set guifont=Fira\ Code:h11
+	let g:neovide_cursor_vfx_mode = "railgun"
+	let g:neovide_cursor_animation_length = 0.08
+endif
+
 " }}}
