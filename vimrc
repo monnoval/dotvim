@@ -251,7 +251,7 @@ let g:gutentags_file_list_command = 'rg --files --follow'
 
 " Ignores
 set wildignore+=.svn,.hg,CVS,.git,.cache,.sass-cache,tags
-set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.jpeg,*.gif,*.log,*.lock,*.min.*,*.map,tags.*
+set wildignore+=*.scssc,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.mp3,*.zip,*.wav,*.mp4,*.ogv,*.webm,*.otf,*.ttf,*.svg,*.woff,*.eot,*.ico,*.dat,*.pdf,*.png,*.jpg,*.jpeg,*.gif,*.log,*.lock,*.min.*,*.map,tags.*,*.kdbx,*.odt
 set wildignore+=*/rake/*,*/tmp/*,*/build/*
 
 " snippy
@@ -312,7 +312,7 @@ let NERDTreeHijackNetrw       = 0
 let NERDTreeAutoDeleteBuffer  = 1
 let NERDTreeRespectWildIgnore = 1
 let NERDTreeLazyDirRefresh    = 1
-let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.jpeg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','\.map','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
+let NERDTreeIgnore = ['\~$','\.[ao]$','\.swp$','\.DS_Store','\.svn','\.CVS','\.hg','\.pyc','\.pyo','\.png','\.gif','\.jpg','\.jpeg','\.ico','\.dropbox','\.eot','\.svg','\.ttf','\.woff','\.otf','\.mp4','\.mp3','\.ogv','\.ogg','\.webm','\.zip','\.gz','\.map','\.pdf','\.odt','^build$[[dir]]','^build-dev$[[dir]]','^build-prod$[[dir]]','^node_modules$[[dir]]','^bower$[[dir]]','^bower_components$[[dir]]']
 let NERDTreeMapToggleFileLines=',l'
 
 " EasyAlign
