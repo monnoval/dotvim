@@ -120,6 +120,7 @@ autocmd FileChangedShellPost *
 " Using tabs only
 set tabstop=2
 set shiftwidth=2
+autocmd FileType scss,sass setlocal noexpandtab softtabstop=0
 
 " }}}
 " UI Layout {{{
