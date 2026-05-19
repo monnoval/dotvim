@@ -60,17 +60,19 @@ endfunction
 " }}}
 " Auto Commands {{{
 
-" Remove any trailing whitespace that is in the file
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
+" Strip trailing whitespace on save. Skipped for filetypes where trailing
+" whitespace is meaningful (markdown line breaks, diff/patch context) and
+" for binary buffers. Cursor position is preserved.
+let g:trailing_ws_skip_ft = ['markdown', 'diff', 'patch', 'mail']
+function! s:StripTrailingWS() abort
+  if &binary || index(g:trailing_ws_skip_ft, &filetype) >= 0
+    return
+  endif
+  let l:view = winsaveview()
+  silent! keeppatterns %s/\s\+$//e
+  call winrestview(l:view)
+endfunction
+autocmd BufWritePre * call s:StripTrailingWS()
 
 " }}}
 " Misc {{{
@@ -234,8 +236,16 @@ map <leader>cmd :!start cmd /k ""<left>
 " toggle showing of invisible characters
 nmap <leader>l :set invlist<cr>
 
-" using retab causes issues when mixed with tabs/space
-nmap <leader>rt :set noet<cr>:%retab!<cr>
+" Convert leading spaces to tabs only — preserves in-line alignment.
+" Plain :%retab! also rewrites alignment spaces inside a line, which
+" mangles things like comments aligned after a `{`.
+function! s:RetabIndent() abort
+  let l:view = winsaveview()
+  setlocal noexpandtab
+  silent! keeppatterns %s/^\( \+\)/\=repeat("\t", len(submatch(1))/&tabstop) . repeat(' ', len(submatch(1)) % &tabstop)/e
+  call winrestview(l:view)
+endfunction
+nmap <leader>rt :call <SID>RetabIndent()<cr>
 
 " }}}
 " Plugins {{{
@@ -243,7 +253,6 @@ nmap <leader>rt :set noet<cr>:%retab!<cr>
 " Yoink
 set clipboard^=unnamed
 let g:yoinkIncludeDeleteOperations = 1
-" let g:yoinkSyncSystemClipboardOnFocus = 0
 nmap <expr> p yoink#canSwap() ? '<plug>(YoinkPostPasteSwapBack)' : '<plug>(YoinkPaste_p)'
 nmap <expr> P yoink#canSwap() ? '<plug>(YoinkPostPasteSwapForward)' : '<plug>(YoinkPaste_P)'
 
