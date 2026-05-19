@@ -236,13 +236,18 @@ map <leader>cmd :!start cmd /k ""<left>
 " toggle showing of invisible characters
 nmap <leader>l :set invlist<cr>
 
-" Convert leading spaces to tabs only — preserves in-line alignment.
+" Convert leading whitespace to tabs only — preserves in-line alignment.
 " Plain :%retab! also rewrites alignment spaces inside a line, which
-" mangles things like comments aligned after a `{`.
+" mangles things like comments aligned after a `{`. Uses # as the
+" :s delimiter so the / inside the expression isn't parsed as one.
 function! s:RetabIndent() abort
   let l:view = winsaveview()
   setlocal noexpandtab
-  silent! keeppatterns %s/^\( \+\)/\=repeat("\t", len(submatch(1))/&tabstop) . repeat(' ', len(submatch(1)) % &tabstop)/e
+  try
+    keeppatterns %s#^\([ \t]\+\)#\=repeat("\t", strdisplaywidth(submatch(1)) / &tabstop) . repeat(' ', strdisplaywidth(submatch(1)) % &tabstop)#
+  catch /E486/
+    echo 'RetabIndent: no leading whitespace found'
+  endtry
   call winrestview(l:view)
 endfunction
 nmap <leader>rt :call <SID>RetabIndent()<cr>
