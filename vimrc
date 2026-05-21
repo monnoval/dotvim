@@ -283,6 +283,7 @@ map <leader>g :Files!<cr>
 map <leader>b :Buffers!<cr>
 map <leader>t :Tags!<cr>
 map <leader>f :Rg!<cr>
+nnoremap <leader>F :execute 'Rg! ' . getreg('+')<cr>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
