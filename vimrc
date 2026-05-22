@@ -374,6 +374,14 @@ vnoremap <C-c> "+y
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q<CR>
 
+" Copy "filename:start-end" of current line or visual selection to clipboard
+command! -range Yline
+    \ let @+ = expand('%:.') . ':' . <line1> . (<line1> == <line2> ? '' : '-' . <line2>)
+    \ | echo 'Copied: ' . @+
+
+" Copy relative file path to clipboard
+command! Ypath let @+ = expand('%:.') | echo 'Copied: ' . @+
+
 " Neovide
 if exists("g:neovide")
 	set guifont=Fira\ Code:h11
