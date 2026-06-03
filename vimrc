@@ -382,6 +382,14 @@ command! -range Yline
 " Copy relative file path to clipboard
 command! Ypath let @+ = expand('%:.') | echo 'Copied: ' . @+
 
+" Copy full (absolute) file path to clipboard
+command! Ypathfull let @+ = expand('%:p') | echo 'Copied: ' . @+
+
+" Open the current file in the default web browser (KDE-native: force the text/html handler)
+command! Openbrowser
+    \ call system('kioclient exec ' . shellescape('file://' . expand('%:p')) . ' text/html')
+    \ | echo 'Opened: ' . expand('%:p')
+
 " Neovide
 if exists("g:neovide")
 	set guifont=Fira\ Code:h11
