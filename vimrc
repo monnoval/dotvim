@@ -300,6 +300,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow'
 let $FZF_DEFAULT_OPTS = '--tabstop=2'
+let $BAT_OPTS = '--tabs=2'
 let g:fzf_tags_command = "ctags -R --options=$HOME/.ctags"
 set grepprg=rg\ --vimgrep
 " Fix tabstop when using Buffers
