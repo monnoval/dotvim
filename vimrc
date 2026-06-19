@@ -383,7 +383,7 @@ command! -range Yline
 command! Ypath let @+ = expand('%:.') | echo 'Copied: ' . @+
 
 " Copy full (absolute) file path to clipboard
-command! Ypathfull let @+ = expand('%:p') | echo 'Copied: ' . @+
+command! Ypathfull let @+ = expand('%:p') | redraw | echo 'Copied full path'
 
 " Open the current file in the default web browser (KDE-native: force the text/html handler)
 command! Openbrowser
