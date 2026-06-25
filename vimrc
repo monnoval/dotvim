@@ -381,7 +381,7 @@ command! -range Yline
     \ | echo 'Copied: ' . @+
 
 " Copy relative file path to clipboard
-command! Ypath let @+ = expand('%:.') | echo 'Copied: ' . @+
+command! Ypath let @+ = expand('%:.') | redraw | echo 'Copied: ' . @+
 
 " Copy full (absolute) file path to clipboard
 command! Ypathfull let @+ = expand('%:p') | redraw | echo 'Copied full path'
